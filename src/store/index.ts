@@ -1,23 +1,12 @@
-// import { createStore, applyMiddleware, Store } from 'redux';
-// import { composeWithDevTools } from "redux-devtools-extension";
-// import { logger } from '../middleware';
-// import rootReducer, { RootState } from '../reducers';
+import {applyMiddleware, createStore} from 'redux';
+import logger from 'redux-logger';
+import thunk from "redux-thunk";
 
-// export function configureStore(initialState?: RootState) {
-//   let middleware = applyMiddleware(logger);
+const middleware = [thunk, logger];
 
-//   if (process.env.NODE_ENV === 'development') {
-//     middleware = composeWithDevTools(middleware);
-//   }
+function configureStore(initialState) {
+    const store: any = createStore(null, applyMiddleware(...middleware));
+    return store;
+}
 
-//   const store = createStore(rootReducer, initialState, middleware) as Store<RootState>;
-
-//   if (module.hot) {
-//     module.hot.accept('../reducers', () => {
-//       const nextReducer = require('../reducers');
-//       store.replaceReducer(nextReducer);
-//     });
-//   }
-
-//   return store;
-// }
+export default configureStore;

@@ -17,7 +17,9 @@ module.exports = {
       'react-dom',
       'react-redux',
       'react-router',
-      'redux'
+      'redux',
+      'redux-logger',
+      'redux-thunk'
     ]
   },
   output: {
