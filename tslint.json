@@ -4,6 +4,12 @@
       // override tslint-react rules here 
       "jsx-wrap-multiline": false,
       "member-access": false,
-      "quotemark": false
+      "quotemark": false,
+      "jsx-boolean-value":false,
+      "max-line-length": false,
+      "ordered-imports": false,
+      "arrow-parens": false,
+      "jsx-no-lambda": false,
+      "no-implicit-dependencies": false
     }
   }

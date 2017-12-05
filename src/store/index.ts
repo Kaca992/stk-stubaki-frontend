@@ -1,11 +1,24 @@
-import {applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import logger from 'redux-logger';
 import thunk from "redux-thunk";
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+import {CompetitionSelectorDuck, ICompetitionSelectorState} from './../ducks';
 
 const middleware = [thunk, logger];
 
-function configureStore(initialState) {
-    const store: any = createStore(null, applyMiddleware(...middleware));
+const reducersApp = combineReducers({
+    competitionSelectorReducer: CompetitionSelectorDuck.reducer,
+});
+
+export interface IStore {
+  competitionSelectorReducer: ICompetitionSelectorState;
+}
+
+function configureStore() {
+    const store: any = createStore(reducersApp, composeWithDevTools(
+        applyMiddleware(...middleware)),
+    );
     return store;
 }
 
