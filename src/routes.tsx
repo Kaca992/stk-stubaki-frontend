@@ -1,34 +1,30 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, IndexRoute, IndexRedirect, hashHistory, Redirect } from 'react-router-dom';
-
-import { Layout } from './pages/Layout';
+import { Switch, Route } from 'react-router-dom';
 
 // pages
 import {App} from './containers/competitionSelector';
 
 export const paths = {
     root: '/',
-    test: 'Test',
+    competition: '/competition',
 };
 
-// default layout creator
-
-function DefaultLayout({content, ...rest}) {
-    return (
-      <Route {...rest} render={matchProps => (<Layout content={content} />)} />
-    );
-}
+const Home = () => {
+  return(
+    <div>
+      Home
+    </div>
+  );
+};
 
 export default class AppRoutes extends React.Component<{}, {}> {
     render() {
       return (
-       <Router>
-          <div>
-            <DefaultLayout exact path="/" content={<App />} />
-          </div>
-       </Router>
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route path='/competition' component={App}/>
+       </Switch>
       );
     }
-  }
+}
