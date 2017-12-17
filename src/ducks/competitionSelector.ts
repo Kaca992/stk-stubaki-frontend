@@ -1,5 +1,5 @@
-import {Action as ReduxAction} from 'redux';
-import actionCreatorFactory, {Action, isType} from 'redux-typescript-actions';
+import {Action} from 'redux';
+import actionCreatorFactory, {isType} from 'typescript-fsa';
 
 // action parameters types
 
@@ -21,13 +21,13 @@ const actionTypes = {
 const actionCreators = {
     test(foo: string) {
         return (dispatch) => {
-            dispatch(actionTypes.TEST);
+            dispatch(actionTypes.TEST({foo}));
         };
     },
 
     test2(params: ITest2Type) {
         return (dispatch) => {
-            dispatch(actionTypes.TEST2);
+            dispatch(actionTypes.TEST2({params}));
         };
     },
 };
@@ -44,7 +44,7 @@ const initialState: ICompetitionSelectorState = {
     foo: '',
 };
 
-const reducer = (state= initialState, action: ReduxAction): ICompetitionSelectorState => {
+const reducer = (state= initialState, action: Action): ICompetitionSelectorState => {
     if (isType(action, actionTypes.TEST)) {
       return {...state, foo: action.payload.foo};
     }
