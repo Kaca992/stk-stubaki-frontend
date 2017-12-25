@@ -92,8 +92,8 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                     <Menu.Item icon={this.props.mobileIconName} onClick={this._changeDrawerState} />
                 </Menu>
 
-                <Drawer isOpen={this.state.isDrawerOpen}>
-                    <Menu vertical>
+                <Drawer isOpen={this.state.isDrawerOpen} onCloseBtnClick={this._changeDrawerState} >
+                    <Menu vertical fluid className="navigation-bar__drawer-menu">
                         {this.props.links.map((item, index) => this._renderItemMobile(item, index))}
                     </Menu>
                 </Drawer>
