@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Dropdown, Menu, Icon, IconProps } from 'semantic-ui-react';
+import { autobind } from 'core-decorators';
 
 import CustomLink from '../customLink/customLink';
 import './header.scss';
+import Drawer from '../drawer/drawer';
 
 export interface ILink {
     text: string;
@@ -13,16 +15,18 @@ export interface ILink {
 
 export interface IHeaderProps {
     links: ILink[];
+
     isMobile?: boolean;
     mobileIconName?: string;
+
     className?: string;
 }
 
-// export interface IHeaderState {
+export interface IHeaderState {
+    isDrawerOpen: boolean;
+}
 
-// }
-
-export default class Header extends React.Component<IHeaderProps, any> {
+export default class Header extends React.Component<IHeaderProps, IHeaderState> {
     public static defaultProps: Partial<IHeaderProps> = {
         isMobile: false,
         mobileIconName: 'content',
@@ -31,6 +35,9 @@ export default class Header extends React.Component<IHeaderProps, any> {
     constructor(props: IHeaderProps) {
         super(props);
 
+        this.state = {
+            isDrawerOpen: false,
+        };
     }
 
     render() {
@@ -56,16 +63,18 @@ export default class Header extends React.Component<IHeaderProps, any> {
     }
 
     private _renderItemMobile(item: ILink, key: number) {
-        return <Dropdown.Item key={key}>
-            {item.children ? <Icon name='dropdown' /> : null}
-            <CustomLink to={item.url} text={item.text} icon={item.icon} />
-            {
-                item.children ? <Dropdown.Menu>
-                        {item.children.map((value, index) => <Dropdown.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} /></Dropdown.Item>)}
-                    </Dropdown.Menu>
-                    : null
-            }
-        </Dropdown.Item>;
+        if (item.children) {
+            return <Menu.Item>
+                <Menu.Header>
+                    <CustomLink to={item.url} text={item.text} icon={item.icon} />
+                </Menu.Header>
+                <Menu.Menu>
+                    {item.children.map((value, index) => <Menu.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} /></Menu.Item>)}
+                </Menu.Menu>
+            </Menu.Item>;
+        }
+
+        return <Menu.Item><CustomLink to={item.url} text={item.text} icon={item.icon} /></Menu.Item>;
     }
 
     private _renderDesktop() {
@@ -78,13 +87,24 @@ export default class Header extends React.Component<IHeaderProps, any> {
 
     private _renderMobile() {
         return (
-            <Menu size='large' className="navigation-bar__container">
-                <Dropdown item icon={this.props.mobileIconName} simple>
-                    <Dropdown.Menu>
+            <div>
+                <Menu size='large' className="navigation-bar__container">
+                    <Menu.Item icon={this.props.mobileIconName} onClick={this._changeDrawerState} />
+                </Menu>
+
+                <Drawer isOpen={this.state.isDrawerOpen}>
+                    <Menu vertical>
                         {this.props.links.map((item, index) => this._renderItemMobile(item, index))}
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Menu>
+                    </Menu>
+                </Drawer>
+            </div>
         );
+    }
+
+    @autobind
+    private _changeDrawerState() {
+        this.setState((prevState) => {
+            return { isDrawerOpen: !prevState.isDrawerOpen };
+        });
     }
 }
