@@ -1,0 +1,12 @@
+@import 'src/style/index';
+
+#navigation-bar {
+    .navigation-bar__container {
+        background-color: $navbar-background;
+        display: flex;
+        justify-content: flex-start;
+
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
