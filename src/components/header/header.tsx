@@ -64,17 +64,17 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
 
     private _renderItemMobile(item: ILink, key: number) {
         if (item.children) {
-            return <Menu.Item>
+            return <Menu.Item key={key}>
                 <Menu.Header>
                     <CustomLink to={item.url} text={item.text} icon={item.icon} />
                 </Menu.Header>
                 <Menu.Menu>
-                    {item.children.map((value, index) => <Menu.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} /></Menu.Item>)}
+                    {item.children.map((value, index) => <Menu.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} onClick={this._changeDrawerState} /></Menu.Item>)}
                 </Menu.Menu>
             </Menu.Item>;
         }
 
-        return <Menu.Item><CustomLink to={item.url} text={item.text} icon={item.icon} /></Menu.Item>;
+        return <Menu.Item key={key}><CustomLink to={item.url} text={item.text} icon={item.icon} onClick={this._changeDrawerState} /></Menu.Item>;
     }
 
     private _renderDesktop() {
@@ -92,7 +92,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                     <Menu.Item icon={this.props.mobileIconName} onClick={this._changeDrawerState} />
                 </Menu>
 
-                <Drawer isOpen={this.state.isDrawerOpen} onCloseBtnClick={this._changeDrawerState} >
+                <Drawer isOpen={this.props.isMobile && this.state.isDrawerOpen} onCloseBtnClick={this._changeDrawerState} >
                     <Menu vertical fluid className="navigation-bar__drawer-menu">
                         {this.props.links.map((item, index) => this._renderItemMobile(item, index))}
                     </Menu>

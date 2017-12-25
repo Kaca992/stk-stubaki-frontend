@@ -9,6 +9,8 @@ export interface ICustomLinkProps {
     icon?: IconProps;
     to?: string;
     className?: string;
+
+    onClick?(): void;
 }
 
 export default class CustomLink extends React.PureComponent<ICustomLinkProps, any> {
@@ -20,7 +22,7 @@ export default class CustomLink extends React.PureComponent<ICustomLinkProps, an
         const className = classNames('custom-link', this.props.className);
 
         return (
-            <Link to={this.props.to} className={className}>
+            <Link to={this.props.to} className={className} onClick={this.props.onClick} >
                 <span>
                     {this.props.icon ? <Icon {...this.props.icon} /> : null}
                     {this.props.text}

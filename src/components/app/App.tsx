@@ -10,7 +10,7 @@ export default class App extends React.Component<any, any> {
   render(): JSX.Element {
     return (
         <div className="app-container">
-            <Header links={NAVBAR_LINKS} isMobile />
+            <Header links={NAVBAR_LINKS} />
             <div className="app-content">
                 <AppRoutes />
             </div>

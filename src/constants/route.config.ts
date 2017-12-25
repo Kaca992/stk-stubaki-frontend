@@ -8,7 +8,7 @@ export const PATHS = {
 export const NAVBAR_LINKS: ILink[] = [
   {
     text: "Test 1",
-    url: PATHS.home,
+    url: PATHS.competition,
   },
 
   {
