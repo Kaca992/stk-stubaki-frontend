@@ -50,7 +50,6 @@ export default class Drawer extends React.Component<IDrawerProps, any> {
                         HEADER
                     </div>
                 }
-
                 <div className='drawer-container__content'>
                     {this.props.children}
                 </div>

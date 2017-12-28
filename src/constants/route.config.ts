@@ -5,9 +5,18 @@ export const PATHS = {
     competition: '/competition',
 };
 
+export const HEADER_LINK: ILink = {
+    text: "STK STUBAKI",
+    url: PATHS.home,
+
+    icon: {
+        name: 'home',
+    },
+};
+
 export const NAVBAR_LINKS: ILink[] = [
   {
-    text: "Test 1",
+    text: "Test 1 dugiiiiiiiiiiiiiiiii",
     url: PATHS.competition,
   },
 

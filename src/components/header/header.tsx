@@ -15,6 +15,7 @@ export interface ILink {
 
 export interface IHeaderProps {
     links: ILink[];
+    headerLink?: ILink;
 
     isMobile?: boolean;
     mobileIconName?: string;
@@ -78,21 +79,27 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     }
 
     private _renderDesktop() {
+        const headerLink = this.props.headerLink;
+
         return (
-            <Menu size='large' className="navigation-bar__container">
+            <Menu size='large' className="navigation-bar__container" borderless>
+                {headerLink ? <CustomLink to={headerLink.url} text={headerLink.text} icon={headerLink.icon} className='header-link' /> : null}
                 {this.props.links.map((item, index) => this._renderItemDesktop(item, index))}
             </Menu>
         );
     }
 
     private _renderMobile() {
+        const headerLink = this.props.headerLink;
+
         return (
             <div>
-                <Menu size='large' className="navigation-bar__container">
-                    <Menu.Item icon={this.props.mobileIconName} onClick={this._changeDrawerState} />
+                <Menu size='large' className="navigation-bar__container" borderless>
+                    {headerLink ? <CustomLink to={headerLink.url} text={headerLink.text} icon={headerLink.icon} className='header-link' /> : null}
+                    <Menu.Item icon={this.props.mobileIconName} onClick={this._changeDrawerState} className='menu-link' />
                 </Menu>
 
-                <Drawer isOpen={this.props.isMobile && this.state.isDrawerOpen} onCloseBtnClick={this._changeDrawerState} >
+                <Drawer isOpen={this.props.isMobile && this.state.isDrawerOpen} onCloseBtnClick={this._changeDrawerState} openDirection='right' >
                     <Menu vertical fluid className="navigation-bar__drawer-menu">
                         {this.props.links.map((item, index) => this._renderItemMobile(item, index))}
                     </Menu>

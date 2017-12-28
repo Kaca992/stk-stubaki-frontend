@@ -1,17 +1,43 @@
 @import 'src/style/index';
 
 #navigation-bar {
+    width: 100%;
+
     .navigation-bar__container {
         background-color: $navbar-background;
         display: flex;
+
         justify-content: flex-start;
+        align-items: center;
 
         padding-left: 10%;
         padding-right: 10%;
+
+        .custom-link {
+            color: $navbar-link-color;         
+
+            &.header-link {
+                font-weight: bold;
+                padding-right: 5%;
+            }
+        }
     }
 
     .navigation-bar__drawer-menu {
         padding-top: 2%;
         height: 100%;
+
+        .custom-link {
+            color: $navbar-link-color;
+
+            &.header-link {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .menu-link {
+        position: relative;
+        left: 30%;
     }
 }
