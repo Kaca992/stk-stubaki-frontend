@@ -36,7 +36,6 @@ module.exports = {
       webpackLoaders.awesomeTypeScript,
       // static assets
      webpackLoaders.htmlLoader,
-     webpackLoaders.urlLoader,
      webpackLoaders.fileLoader,
      //styles
      variables.isProduction ? webpackLoaders.sassOneFile : webpackLoaders.sass

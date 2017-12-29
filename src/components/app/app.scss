@@ -1,0 +1,31 @@
+@import 'src/style/index';
+
+.app-container {
+    width: 100%;
+
+    .app-content {
+        background: $content-background;
+        @include font-size($content-font-size);
+        color: $content-font-color;
+
+        overflow: hidden;
+    }
+
+    .desktop-navigation {
+        display: block;
+    }
+
+    .mobile-navigation {
+        display: none;
+    }
+
+    @include bp-small {
+        .desktop-navigation {
+            display: none;
+        }
+    
+        .mobile-navigation {
+            display: block;
+        }
+    }
+}

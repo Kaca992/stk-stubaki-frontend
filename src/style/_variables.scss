@@ -1,9 +1,19 @@
+@import "_mixins";
+
 // colors
 $ligth-blue: #ADD8E6;
 $black: #000000;
+$white: #ffffff;
 
 // site theme
 
 // navbar
-$navbar-background: $ligth-blue;
-$navbar-link-color: $black;
+$navbar-background: $ligth-blue !default;
+$navbar-link-color: $black !default;
+$navbar-font-size: 18px !default;
+
+// content
+$content-background: yellow !default;
+
+$content-font-size: 16px !default;
+$content-font-color: $black !default;

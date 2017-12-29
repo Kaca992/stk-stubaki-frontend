@@ -18,12 +18,12 @@ exports.htmlLoader = {
     test: /\.html$/, use: 'html-loader'
 };
 
-exports.urlLoader = {
-    test: /\.png$/, use: 'url-loader?limit=10000'
-};
+// exports.urlLoader = {
+//     test: /\.png$/, use: 'url-loader?limit=10000'
+// };
 
 exports.fileLoader = {
-    test: /\.jpg$/, use: 'file-loader'
+   test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "file-loader?name=./assets/images/[name].[ext]"
 };
 
 //styles

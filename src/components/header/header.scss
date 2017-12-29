@@ -1,7 +1,7 @@
 @import 'src/style/index';
 
 #navigation-bar {
-    width: 100%;
+    width: 100%;    
 
     .navigation-bar__container {
         background-color: $navbar-background;
@@ -13,8 +13,14 @@
         padding-left: 10%;
         padding-right: 10%;
 
+        .dropdown-link {
+            color: $navbar-link-color;         
+            @include font-size($navbar-font-size);
+        }
+
         .custom-link {
             color: $navbar-link-color;         
+            @include font-size($navbar-font-size);
 
             &.header-link {
                 font-weight: bold;
@@ -29,6 +35,7 @@
 
         .custom-link {
             color: $navbar-link-color;
+            @include font-size($navbar-font-size);
 
             &.header-link {
                 font-weight: bold;

@@ -3,8 +3,8 @@ import { Dropdown, Menu, Icon, IconProps } from 'semantic-ui-react';
 import { autobind } from 'core-decorators';
 
 import CustomLink from '../customLink/customLink';
-import './header.scss';
 import Drawer from '../drawer/drawer';
+import './header.scss';
 
 export interface ILink {
     text: string;
@@ -42,7 +42,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     }
 
     render() {
-        return <div id='navigation-bar'>
+        return <div id='navigation-bar' className={this.props.className} >
             {this.props.isMobile ? this._renderMobile() : this._renderDesktop()}
         </div>;
     }
@@ -55,7 +55,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         }
 
         return <Menu.Menu key={key}>
-            <Dropdown item text={item.text} simple>
+            <Dropdown item text={item.text} simple className='dropdown-link'>
                 <Dropdown.Menu>
                     {item.children.map((value, index) => <Dropdown.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} /></Dropdown.Item>)}
                 </Dropdown.Menu>
