@@ -12,6 +12,7 @@
       "no-implicit-dependencies": false,
       "no-var-requires": false,
       "jsx-no-multiline-js": false,
-      "jsx-curly-spacing": false
+      "jsx-curly-spacing": false,
+      "trailing-comma": false
     }
   }

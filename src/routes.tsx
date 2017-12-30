@@ -5,6 +5,9 @@ import { Switch, Route } from 'react-router-dom';
 import { PATHS } from './constants/route.config';
 // pages
 
+// testing
+import SeasonSelector from './containers/seasonSelector/seasonSelector';
+
 const Home = () => {
   return(
     <div>
@@ -15,9 +18,7 @@ const Home = () => {
 
 const Home2 = () => {
   return(
-    <div>
-      Home2
-    </div>
+    <SeasonSelector testName='test'/>
   );
 };
 

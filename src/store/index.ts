@@ -3,16 +3,16 @@ import logger from 'redux-logger';
 import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import {CompetitionSelectorDuck, ICompetitionSelectorState} from './../ducks';
+import {SeasonDuck, ISeasonState} from './../ducks';
 
 const middleware = [thunk, logger];
 
 const reducersApp = combineReducers({
-    competitionSelectorReducer: CompetitionSelectorDuck.reducer,
+    seasonReducer: SeasonDuck.reducer,
 });
 
 export interface IStore {
-  competitionSelectorReducer: ICompetitionSelectorState;
+  seasonReducer: ISeasonState;
 }
 
 function configureStore() {

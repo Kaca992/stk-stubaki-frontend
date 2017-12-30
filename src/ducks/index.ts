@@ -1,1 +1,1 @@
-export * from './competitionSelector';
+export * from './season.duck';
