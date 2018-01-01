@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import './drawer.scss';
+import * as classNames from 'classnames';
 
-const classNames = require('classnames');
+import './drawer.scss';
 
 type DrawerDirectionType = 'left' | 'right';
 

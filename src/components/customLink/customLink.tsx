@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, IconProps } from 'semantic-ui-react';
 
-const classNames = require('classnames');
+import * as classNames from 'classnames';
 
 export interface ICustomLinkProps {
     text?: string;
