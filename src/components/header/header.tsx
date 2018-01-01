@@ -48,6 +48,10 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     }
 
     private _renderItemDesktop(item: ILink, key: number) {
+        if (!item) {
+            return null;
+        }
+
         if (item.url) {
             return <Menu.Item key={key}>
                 <CustomLink to={item.url} text={item.text} icon={item.icon} />
@@ -57,13 +61,17 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         return <Menu.Menu key={key}>
             <Dropdown item text={item.text} simple className='dropdown-link'>
                 <Dropdown.Menu>
-                    {item.children.map((value, index) => <Dropdown.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} /></Dropdown.Item>)}
+                    {item.children && item.children.map((value, index) => <Dropdown.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} /></Dropdown.Item>)}
                 </Dropdown.Menu>
             </Dropdown>
         </Menu.Menu>;
     }
 
     private _renderItemMobile(item: ILink, key: number) {
+        if (!item) {
+            return null;
+        }
+
         if (item.children) {
             return <Menu.Item key={key}>
                 <Menu.Header>
