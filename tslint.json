@@ -13,6 +13,7 @@
       "no-var-requires": false,
       "jsx-no-multiline-js": false,
       "jsx-curly-spacing": false,
-      "trailing-comma": false
+      "trailing-comma": false,
+      "prefer-const": false
     }
   }

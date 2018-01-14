@@ -1,9 +1,13 @@
 import {Action} from 'redux';
-import {ISeason} from '../common/dataStructures';
+import {ISeasonInfo} from '../common/dataStructures';
+
+import { fetcher, ICustomFetchOptions } from '../utils/fetcher';
 // action types
 
 const actionTypes = {
-    SEASON_LIST_REQUEST: 'SEASON_REQUEST',
+    SEASON_LIST_REQUEST: 'SEASON_LIST_REQUEST',
+    SEASON_LIST_RESPONSE: 'SEASON_LIST_RESPONSE',
+    SEASON_LIST_ERROR: 'SEASON_LIST_ERROR',
 };
 
 // action creators
@@ -11,7 +15,15 @@ const actionTypes = {
 const actionCreators = {
     getSeasonsList() {
         return (dispatch) => {
-            dispatch({type: actionTypes.SEASON_LIST_REQUEST});
+            let url = 'api/raspored';
+            let options: ICustomFetchOptions = {
+                requestAction: actionTypes.SEASON_LIST_REQUEST,
+                responseAction: actionTypes.SEASON_LIST_RESPONSE,
+                errorAction: actionTypes.SEASON_LIST_ERROR,
+                hasResult: true
+            };
+
+            fetcher(url, options, dispatch);
         };
     },
 };
@@ -19,7 +31,7 @@ const actionCreators = {
 // reducer
 
 export interface ISeasonState {
-    byId: { [key: string]: ISeason };
+    byId: { [key: string]: ISeasonInfo };
     allIds: number[];
     UI: {
        isLoading?: boolean
@@ -41,6 +53,13 @@ const reducer = (state= initialState, action: Action): ISeasonState => {
                 ...state,
                 UI: {
                     isLoading: true
+                }
+            };
+        case actionTypes.SEASON_LIST_RESPONSE:
+            return {
+                ...state,
+                UI: {
+                    isLoading: false
                 }
             };
     }

@@ -1,6 +1,6 @@
 import {SeasonTypeEnum} from './enums';
 
-export interface ISeason {
+export interface ISeasonInfo {
     seasonId: number;
     name: string;
     type: SeasonTypeEnum;
