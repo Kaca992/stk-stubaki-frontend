@@ -1,4 +1,5 @@
 export enum SeasonTypeEnum {
-    Liga = 1,
-    Kup = 2
+    PrvaLiga = 1,
+    DrugaLiga = 2,
+    Kup = 3
 }

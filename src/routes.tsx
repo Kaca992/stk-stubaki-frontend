@@ -18,7 +18,7 @@ const Home = () => {
 
 const Home2 = () => {
   return(
-    <SeasonSelector testName='test'/>
+    <SeasonSelector/>
   );
 };
 
