@@ -1,28 +1,12 @@
 @import 'src/style/index';
 
 .season-selector {
-    .season-selector_season-group {
-        display: flex;
-        justify-content: space-between;
-
-        margin-bottom: 2%;
-
-        .season-selector_season-group-btn {
-            @include primary-btn;
-
-            &.season-selector_season-group-btn-selected {
-                background-color: $primary-bg-color_hover;
-            }
-        }
-
-        .season-selector_season-group-btn:hover {
-            background-color: $primary-bg-color_hover;
-        }
+    .season-selector_item {
+        margin: 2%;
     }
 
-    .season-selector_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .season-selector_btn {
+        margin-left: 2%;
+        @include primary-btn;
     }
 }
