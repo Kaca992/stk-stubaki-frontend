@@ -4,7 +4,7 @@
     @return $remSize * 1rem;
   }
   
-  @mixin font-size($size) {
+@mixin font-size($size) {
     font-size: $size;
     font-size: calculateRem($size);
 }
@@ -26,4 +26,4 @@
     @media only screen and (max-width: 30em) {
       @content;
     }
-  }
+}

@@ -4,12 +4,16 @@ import { connect } from 'react-redux';
 import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
 
-import { Button } from 'semantic-ui-react';
+import { Button, Divider, Header, Grid } from 'semantic-ui-react';
 
 import { IStore } from '../../store';
 import { SeasonDuck } from '../../ducks';
 import { SeasonTypeEnum } from '../../common/enums';
 import { ISeasonInfo } from '../../common/dataStructures';
+import { getSeasonDisplayName } from '../../utils/displayFormaters';
+
+import './seasonSelector.scss';
+import GridColumn from 'semantic-ui-react/dist/commonjs/collections/Grid/GridColumn';
 
 export interface ISeasonSelectorProps {
     urlLink?: string;
@@ -69,11 +73,15 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
         }
 
         return (
-            seasonList.map(season => {
-                if (season.type === seasonType) {
-                    return <Button key={season.id}>{season.name}</Button>;
-                }
-            })
+            <Grid columns={3} stackable textAlign="center">
+                {seasonList.map(season => {
+                    if (season.type === seasonType) {
+                        return <GridColumn>
+                            <Button key={season.id} size="big" >{season.name}</Button>
+                        </GridColumn>;
+                    }
+                })}
+            </Grid>
         );
     }
 
@@ -91,22 +99,36 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
             includedSeasonTypes
         } = this.props;
 
+        let {
+            selectedSeasonType
+        } = this.state;
+
         if (isLoading) {
             return <div>
                 Loading...
             </div>;
         }
 
+        const btnGroupClassName = "season-selector_season-group-btn";
+        const btnGroupSelectedClassName = classNames("season-selector_season-group-btn", "season-selector_season-group-btn-selected");
+
         return (
-            <div>
-                <Button.Group>
+            <div className="season-selector">
+                <Header as='h1'>Odaberite sezonu</Header>
+                <Divider />
+
+                <Button.Group size="large" className="season-selector_season-group">
                     {
                         includedSeasonTypes && includedSeasonTypes.map(seasonType => {
-                            return <Button key={seasonType} onClick={() => this._onChangeSeasonType(seasonType)}>{seasonType}</Button>;
+                            return <Button
+                                className={selectedSeasonType === seasonType ? btnGroupSelectedClassName : btnGroupClassName}
+                                key={seasonType}
+                                onClick={() => this._onChangeSeasonType(seasonType)}>{getSeasonDisplayName(seasonType)}
+                            </Button>;
                         })
                     }
                 </Button.Group>
-                <div>
+                <div className="season-selector_container">
                     {
                         this._renderButtonGroup(this.state.selectedSeasonType)
                     }

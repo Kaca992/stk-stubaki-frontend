@@ -8,6 +8,7 @@
         @include font-size($content-font-size);
         color: $content-font-color;
 
+        margin: 2%;
         overflow: hidden;
     }
 

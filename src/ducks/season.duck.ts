@@ -2,15 +2,13 @@ import { createSelector } from 'reselect';
 
 import {ISeasonInfo} from '../common/dataStructures';
 
-import { fetcher, ICustomFetchOptions } from '../utils/fetcher';
+import { fetcher, actionUtils, ICustomFetchOptions } from '../utils/fetcher';
 import { IAction } from '../common/interfaces';
 import { IStore } from '../store/index';
 // action types
 
 const actionTypes = {
-    SEASON_LIST_REQUEST: 'SEASON_LIST_REQUEST',
-    SEASON_LIST_RESPONSE: 'SEASON_LIST_RESPONSE',
-    SEASON_LIST_ERROR: 'SEASON_LIST_ERROR',
+    SEASON_LIST: 'SEASON_LIST'
 };
 
 // action creators
@@ -20,9 +18,7 @@ const actionCreators = {
         return (dispatch) => {
             let url = 'api/raspored';
             let options: ICustomFetchOptions = {
-                requestAction: actionTypes.SEASON_LIST_REQUEST,
-                responseAction: actionTypes.SEASON_LIST_RESPONSE,
-                errorAction: actionTypes.SEASON_LIST_ERROR,
+                action: actionTypes.SEASON_LIST,
                 hasResult: true
             };
 
@@ -51,14 +47,14 @@ const initialState: ISeasonState = {
 
 const reducer = (state= initialState, action: IAction): ISeasonState => {
     switch (action.type) {
-        case actionTypes.SEASON_LIST_REQUEST:
+        case actionUtils.requestAction(actionTypes.SEASON_LIST):
             return {
                 ...state,
                 UI: {
                     isLoading: true
                 }
             };
-        case actionTypes.SEASON_LIST_RESPONSE:
+        case actionUtils.responseAction(actionTypes.SEASON_LIST):
             let seasons = action.payload as ISeasonInfo[];
             let allIds: number[] = [];
             let byId: { [key: string]: ISeasonInfo } = {};

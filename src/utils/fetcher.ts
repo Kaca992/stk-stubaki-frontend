@@ -2,10 +2,8 @@ import 'isomorphic-fetch';
 import { appendServiceApiEndpoint } from './configOptions';
 
 export interface ICustomFetchOptions {
+    action: string;
     hasResult?: boolean;
-    requestAction?: string;
-    responseAction?: string;
-    errorAction?: string;
 }
 
 export function fetcher(url: string, customOptions: ICustomFetchOptions, dispatch: any, init?: RequestInit): Promise<any> {
@@ -20,10 +18,10 @@ export function fetcher(url: string, customOptions: ICustomFetchOptions, dispatc
 
     let fullUrl = appendServiceApiEndpoint(url);
 
-    const { requestAction, responseAction, errorAction } = customOptions;
+    const {action} = customOptions;
 
     dispatch({
-        type: requestAction,
+        type: actionUtils.requestAction(action),
         payload: null
     });
 
@@ -33,7 +31,7 @@ export function fetcher(url: string, customOptions: ICustomFetchOptions, dispatc
                 if (customOptions.hasResult) {
                     return response.json().then(jsonResponse => {
                         dispatch({
-                            type: responseAction,
+                            type: actionUtils.responseAction(action),
                             payload: jsonResponse
                         });
 
@@ -42,16 +40,16 @@ export function fetcher(url: string, customOptions: ICustomFetchOptions, dispatc
                 }
 
                 dispatch({
-                    type: responseAction,
+                    type: actionUtils.responseAction(action),
                     payload: null
                 });
 
-                Promise.resolve();
+                return Promise.resolve();
             } else {
                 const error = new Error(response.statusText);
 
                 dispatch({
-                    type: errorAction,
+                    type: actionUtils.errorAction(action),
                     payload: null
                 });
 
@@ -59,3 +57,17 @@ export function fetcher(url: string, customOptions: ICustomFetchOptions, dispatc
             }
         });
 }
+
+export const actionUtils = {
+    requestAction(action: string): string {
+        return `${action}_REQUEST`;
+    },
+
+    responseAction(action: string): string {
+        return `${action}_RESPONSE`;
+    },
+
+    errorAction(action: string): string {
+        return `${action}_ERROR`;
+    },
+};

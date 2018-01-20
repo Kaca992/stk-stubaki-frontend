@@ -4,3 +4,13 @@
 // @mixin base-font {
 //     @include font-source-sans($base-font-family,$base-font-size, $base-font-color);
 // }
+
+@mixin primary-btn {
+    background-color: $primary-bg-color;
+    color: $primary-color;
+}
+
+@mixin secondary-btn {
+    background-color: $primary-bg-color;
+    color: $primary-color;
+}

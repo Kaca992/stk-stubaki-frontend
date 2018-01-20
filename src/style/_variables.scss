@@ -1,9 +1,12 @@
 @import "_mixins";
 
 // colors
+$blue: rgba(0, 102, 255, 0.63);
+$pink: pink;
 $ligth-blue: #ADD8E6;
 $black: #000000;
 $white: #ffffff;
+$yellow:  yellow;
 
 // site theme
 
@@ -13,7 +16,18 @@ $navbar-link-color: $black !default;
 $navbar-font-size: 18px !default;
 
 // content
-$content-background: yellow !default;
+$content-background:$white !default;
 
 $content-font-size: 16px !default;
 $content-font-color: $black !default;
+
+// buttons
+$primary-bg-color: $blue;
+$secondary-bg-color: $pink;
+
+$primary-bg-color_hover: $pink;
+$secondary-bg-color_hover: $pink;
+
+$primary-color: $black;
+$secondary-color: $black;
+
