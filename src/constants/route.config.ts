@@ -1,13 +1,13 @@
 import { ILink } from '../components/header/header';
 
 export const SELECTOR_LINKS = {
-    competitionPage: '/competition'
+    tablicaPage: '/tablica'
 };
 
 export const PATHS = {
     home: '/',
-    competitionSelector: '/competition-selector',
-    competitionPage: '/competition/:id'
+    seasonSelector: '/season-selector',
+    tablicaPage: '/tablica/:id'
 };
 
 export const HEADER_LINK: ILink = {
@@ -24,8 +24,8 @@ export const NAVBAR_LINKS: ILink[] = [
     text: "LIGE KZŽ",
     children: [
         {
-            text: "Tablice i raspored",
-            url: PATHS.competitionSelector,
+            text: "Tablica",
+            url: PATHS.seasonSelector,
         },
     ],
   },
