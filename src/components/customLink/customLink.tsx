@@ -14,15 +14,12 @@ export interface ICustomLinkProps {
 }
 
 export default class CustomLink extends React.PureComponent<ICustomLinkProps, any> {
-    public static defaultProps: Partial<ICustomLinkProps> = {
-        to: '#',
-    };
-
     render() {
         const className = classNames('custom-link', this.props.className);
+        const to = this.props.to ? this.props.to : "#";
 
         return (
-            <Link to={this.props.to} className={className} onClick={this.props.onClick} >
+            <Link to={to} className={className} onClick={this.props.onClick} >
                 <span>
                     {this.props.icon ? <Icon {...this.props.icon} /> : null}
                     {this.props.text}

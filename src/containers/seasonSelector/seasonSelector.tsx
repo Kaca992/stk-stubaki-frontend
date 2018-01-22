@@ -13,6 +13,14 @@ import { ISeasonInfo } from '../../common/dataStructures';
 import { getSeasonDisplayName } from '../../utils/displayFormaters';
 
 import './seasonSelector.scss';
+import ButtonLink from '../../components/buttonLink/buttonLink';
+
+export interface ISeasonSelectorOwnProps {
+    urlLink?: string;
+    showNextBtn?: boolean;
+    selectedSeasonType?: SeasonTypeEnum;
+    includedSeasonTypes?: SeasonTypeEnum[];
+}
 
 export interface ISeasonSelectorProps {
     urlLink?: string;
@@ -34,8 +42,9 @@ export interface ISeasonSelectorState {
     selectedSeasonId?: number;
 }
 
-function mapStateToProps(state: IStore): ISeasonSelectorProps {
+function mapStateToProps(state: IStore, ownProps: ISeasonSelectorOwnProps): ISeasonSelectorProps {
     return {
+        ...ownProps,
         isLoading: state.seasonReducer.UI.isLoading,
         seasonList: SeasonDuck.selectors.getAllSeasons(state),
     };
@@ -47,11 +56,10 @@ function mapDispatchToProps(dispatch: any): ISeasonSelectorProps {
     };
 }
 
-class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
+class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelectorState> {
     public static defaultProps: Partial<ISeasonSelectorProps> = {
         urlLink: '#',
         showNextBtn: true,
-        selectedSeasonType: SeasonTypeEnum.PrvaLiga,
         includedSeasonTypes: [SeasonTypeEnum.PrvaLiga, SeasonTypeEnum.DrugaLiga, SeasonTypeEnum.Kup],
     };
 
@@ -61,7 +69,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
         super(props);
 
         this.state = {
-            selectedSeasonType: props.selectedSeasonType
+            selectedSeasonType: props.selectedSeasonType ? props.selectedSeasonType : SeasonTypeEnum.PrvaLiga
         };
     }
 
@@ -79,7 +87,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
 
         this.setState({
             selectedSeasonType: seasonType,
-            selectedSeasonId: null
+            selectedSeasonId: undefined
         });
     }
 
@@ -136,6 +144,13 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
         });
     }
 
+    @autobind
+    _createUrlLink(selectedSeasonOption: number): string {
+        const url = this.props.urlLink ? this.props.urlLink : "#";
+
+        return `${url}/${selectedSeasonOption}`;
+    }
+
     render() {
         let {
             isLoading,
@@ -158,7 +173,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
         const btnGroupSelectedClassName = classNames("season-selector_season-group-btn", "season-selector_season-group-btn-selected");
 
         let seasonOptions = this._createDropdownSeasonOptions(this.state.selectedSeasonType);
-        let selectedSeasonOption = !this.state.selectedSeasonId && this.maxSeasonId !== -1 ? this.maxSeasonId : this.state.selectedSeasonId;
+        let selectedSeasonOption = this.state.selectedSeasonId ? this.state.selectedSeasonId : this.maxSeasonId;
 
         return (
             <div className="season-selector">
@@ -180,10 +195,10 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, any> {
                 </div>
 
                 {
-                    showNextBtn && <Button className="season-selector_btn" size="large" icon labelPosition='right'>
+                    showNextBtn && <ButtonLink to={this._createUrlLink(selectedSeasonOption)} className="season-selector_btn" size="large" icon labelPosition='right'>
                         Dalje
                         <Icon name="arrow right" />
-                    </Button>
+                    </ButtonLink>
                 }
             </div>
         );

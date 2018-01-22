@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Switch, Route } from 'react-router-dom';
 
-import { PATHS } from './constants/route.config';
+import { PATHS, SELECTOR_LINKS } from './constants/route.config';
 // pages
 
 // testing
@@ -16,9 +16,11 @@ const Home = () => {
   );
 };
 
-const Home2 = () => {
+const Home2 = ({match}) => {
   return(
-    <SeasonSelector/>
+    <div>
+      {match.params.id}
+    </div>
   );
 };
 
@@ -27,7 +29,8 @@ export default class AppRoutes extends React.Component<{}, {}> {
       return (
         <Switch>
           <Route exact path={PATHS.home} component={Home}/>
-          <Route path={PATHS.competition} component={Home2}/>
+          <Route path={PATHS.competitionSelector} component={() => <SeasonSelector urlLink={SELECTOR_LINKS.competitionPage} />}/>
+          <Route path={PATHS.competitionPage} component={Home2}/>
        </Switch>
       );
     }

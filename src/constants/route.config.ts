@@ -1,8 +1,13 @@
 import { ILink } from '../components/header/header';
 
+export const SELECTOR_LINKS = {
+    competitionPage: '/competition'
+};
+
 export const PATHS = {
     home: '/',
-    competition: '/competition',
+    competitionSelector: '/competition-selector',
+    competitionPage: '/competition/:id'
 };
 
 export const HEADER_LINK: ILink = {
@@ -16,21 +21,11 @@ export const HEADER_LINK: ILink = {
 
 export const NAVBAR_LINKS: ILink[] = [
   {
-    text: "Test 1 dugiiiiiiiiiiiiiiiii",
-    url: PATHS.competition,
-  },
-
-  {
-    text: "Test 2",
+    text: "LIGE KZŽ",
     children: [
         {
-            text: "Test 2.1",
-            url: PATHS.home,
-        },
-
-        {
-            text: "Test 2.2.",
-            url: PATHS.home,
+            text: "Tablice i raspored",
+            url: PATHS.competitionSelector,
         },
     ],
   },
