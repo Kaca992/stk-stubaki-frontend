@@ -5,6 +5,7 @@ import {ISeasonInfo} from '../common/dataStructures';
 import { fetcher, actionUtils, ICustomFetchOptions } from '../utils/fetcher';
 import { IAction } from '../common/interfaces';
 import { IStore } from '../store/index';
+import { SeasonController } from '../constants/service.endpoints';
 // action types
 
 const actionTypes = {
@@ -16,7 +17,7 @@ const actionTypes = {
 const actionCreators = {
     initSeasonsList() {
         return (dispatch) => {
-            let url = 'api/raspored';
+            let url = SeasonController.allSeasons;
             let options: ICustomFetchOptions = {
                 action: actionTypes.SEASON_LIST,
                 hasResult: true

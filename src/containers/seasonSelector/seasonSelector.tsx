@@ -116,7 +116,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
             if (season.type === seasonType) {
                 items.push({
                     key: season.id,
-                    text: season.name,
+                    text: season.godina,
                     value: season.id,
                     onClick: () => this._onChangeSeasonId(season.id)
                 });

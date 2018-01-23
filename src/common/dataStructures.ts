@@ -2,6 +2,7 @@ import {SeasonTypeEnum} from './enums';
 
 export interface ISeasonInfo {
     id: number;
-    name: string;
+    displayName: string;
     type: SeasonTypeEnum;
+    godina: string;
 }
