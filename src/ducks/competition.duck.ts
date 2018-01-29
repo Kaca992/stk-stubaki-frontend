@@ -20,7 +20,7 @@ const actionCreators = {
 export interface ICompetitionState {
     UI: {
         isLoading: false
-    }
+    };
 }
 
 const initialState: ICompetitionState = {

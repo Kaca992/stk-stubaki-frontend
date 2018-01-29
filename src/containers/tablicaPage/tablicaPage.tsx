@@ -7,6 +7,9 @@ import { autobind } from 'core-decorators';
 import { IStore } from '../../store';
 
 import './tablicaPage.scss';
+import Grid from '../../components/grid/grid';
+import { IHeaderProps } from '../../components/grid/grid.props';
+import {tableData} from '../../mock/mockTable';
 
 export interface ITablicaOwnProps {
     seasonId: any;
@@ -38,10 +41,57 @@ class TablicaPage extends React.Component<ITablicaPageProps, ITablicaPageState> 
 
     }
 
+    _createHeaders(): IHeaderProps[] {
+        return [
+            {
+                id: 'position',
+                value: ' ',
+            },
+
+            {
+                id: 'name',
+                value: ' ',
+            },
+
+            {
+                id: 'gamesPlayed',
+                value: 'OS'
+            },
+
+            {
+                id: 'won',
+                value: 'P'
+            },
+
+            {
+                id: 'lost',
+                value: 'I'
+            },
+
+            {
+                id: 'draw',
+                value: 'N'
+            },
+
+            {
+                id: 'matches',
+                value: 'M'
+            },
+
+            {
+                id: 'points',
+                value: 'B'
+            }
+        ];
+    }
+
     render() {
         return (
             <div>
-                This is test season id: {this.props.seasonId}
+                <Grid
+                    headers={this._createHeaders()}
+                    rows={tableData}
+                />
             </div>
         );
     }
