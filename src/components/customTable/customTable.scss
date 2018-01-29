@@ -1,0 +1,32 @@
+table.table.custom-table {
+    border-collapse: collapse;
+    border: 0;
+	width: 100%;
+	float: left;
+    margin: 0 0 2em;
+
+    thead.custom-table_header {
+		border-bottom: 3px solid black;
+		th {
+			padding: 0.35em 0 .35em;
+            font-weight: 400;
+			text-align: center;
+			font-size: 1.1em;
+		}		
+    }
+    
+    tbody.custom-table_body {
+		border-bottom: 3px solid black;
+		tr {
+			border-bottom: 2px solid #ddd;
+
+			td {
+                text-align: center;
+				padding: .75em 0;
+                .row-number-cell {
+                    text-align: left;
+                }
+			}
+		}
+	}
+}

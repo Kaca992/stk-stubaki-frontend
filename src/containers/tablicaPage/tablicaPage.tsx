@@ -8,8 +8,8 @@ import { IStore } from '../../store';
 
 import './tablicaPage.scss';
 import Grid from '../../components/grid/grid';
-import { IHeaderProps } from '../../components/grid/grid.props';
 import {tableData} from '../../mock/mockTable';
+import CustomTable, {IHeaderProps} from '../../components/customTable/customTable';
 
 export interface ITablicaOwnProps {
     seasonId: any;
@@ -88,9 +88,10 @@ class TablicaPage extends React.Component<ITablicaPageProps, ITablicaPageState> 
     render() {
         return (
             <div>
-                <Grid
+                <CustomTable
                     headers={this._createHeaders()}
-                    rows={tableData}
+                    data={tableData}
+                    rowKey='teamId'
                 />
             </div>
         );
