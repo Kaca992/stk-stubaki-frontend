@@ -12,7 +12,8 @@ export interface IHeaderProps {
     id: string;
     value: string;
 
-    className?: string;
+    columnClassName?: string;
+    headerClassName?: string;
 }
 
 export interface ICustomTableProps {
@@ -41,7 +42,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, any>
                         headers.map((header, index) => {
                             return <Table.HeaderCell
                                 key={header.id}
-                                className={header.className}
+                                className={header.headerClassName}
                                 onClick={this._headerClicked(header.id)}>
                                 {header.value}
                             </Table.HeaderCell>;
@@ -75,7 +76,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, any>
                         return <Table.Row key={index} className={rowClassName} onClick={() => this._rowClicked(rowValue)}>
                             {
                                 headers.map((header, cellIndex) => {
-                                    return <Table.Cell key={header.id}>
+                                    return <Table.Cell key={header.id} className={header.columnClassName}>
                                         {header.id in rowValue ? rowValue[header.id] : ' '}
                                     </Table.Cell>;
                                 })
