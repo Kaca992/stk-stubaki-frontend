@@ -41,7 +41,7 @@ const selectors = {
 
 };
 
-export const TablicaDuck = {
+export const CompetitionDuck = {
     actionTypes,
     actionCreators,
     reducer,
