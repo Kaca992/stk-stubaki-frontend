@@ -2,7 +2,6 @@ import { ITableTeamInfo } from "../common/dataStructures";
 
 export const tableData: ITableTeamInfo[] = [
     {
-        position: '1.',
         teamId: 1,
         name: "Test momcad 1",
         gamesPlayed: 10,
@@ -14,7 +13,6 @@ export const tableData: ITableTeamInfo[] = [
     },
 
     {
-        position: '2.',
         teamId: 2,
         name: "Test momcad 2",
         gamesPlayed: 10,
@@ -26,7 +24,6 @@ export const tableData: ITableTeamInfo[] = [
     },
 
     {
-        position: '3.',
         teamId: 3,
         name: "Test momcad 3",
         gamesPlayed: 10,
@@ -38,7 +35,6 @@ export const tableData: ITableTeamInfo[] = [
     },
 
     {
-        position: '4.',
         teamId: 4,
         name: "Test momcad 4",
         gamesPlayed: 10,

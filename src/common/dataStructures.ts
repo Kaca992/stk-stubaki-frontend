@@ -8,7 +8,6 @@ export interface ISeasonInfo {
 }
 
 export interface ITableTeamInfo {
-    position: string;
     teamId: number;
     name: string;
 
