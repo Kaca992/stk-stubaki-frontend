@@ -19,7 +19,7 @@
         display: none;
     }
 
-    @include bp-small {
+    @include mobile {
         .desktop-navigation {
             display: none;
         }

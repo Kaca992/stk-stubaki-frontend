@@ -10,20 +10,31 @@
 }
 
 // breakpoint
-@mixin bp-large {
+@mixin desktop {
     @media only screen and (max-width: 60em) {
       @content;
     }
   }
   
-  @mixin bp-medium {
+  @mixin tablet {
     @media only screen and (max-width: 40em) {
       @content;
     }
   }
   
-  @mixin bp-small {
+  @mixin mobile {
     @media only screen and (max-width: 30em) {
       @content;
     }
+}
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
 }

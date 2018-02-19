@@ -7,9 +7,9 @@ import { autobind } from 'core-decorators';
 import { IStore } from '../../store';
 
 import './tablicaPage.scss';
-import Grid from '../../components/grid/grid';
 import {tableData} from '../../mock/mockTable';
 import CustomTable, {IHeaderProps} from '../../components/customTable/customTable';
+import { headers } from './tablicaPage.utils';
 
 export interface ITablicaOwnProps {
     seasonId: any;
@@ -41,55 +41,11 @@ class TablicaPage extends React.Component<ITablicaPageProps, ITablicaPageState> 
 
     }
 
-    _createHeaders(): IHeaderProps[] {
-        return [
-            {
-                id: 'position',
-                value: ' ',
-            },
-
-            {
-                id: 'name',
-                value: ' ',
-            },
-
-            {
-                id: 'gamesPlayed',
-                value: 'OS'
-            },
-
-            {
-                id: 'won',
-                value: 'P'
-            },
-
-            {
-                id: 'lost',
-                value: 'I'
-            },
-
-            {
-                id: 'draw',
-                value: 'N'
-            },
-
-            {
-                id: 'matches',
-                value: 'M'
-            },
-
-            {
-                id: 'points',
-                value: 'B'
-            }
-        ];
-    }
-
     render() {
         return (
             <div>
                 <CustomTable
-                    headers={this._createHeaders()}
+                    headers={headers}
                     data={tableData}
                     rowKey='teamId'
                 />

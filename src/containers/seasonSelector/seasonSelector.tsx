@@ -177,7 +177,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
 
         return (
             <div className="season-selector">
-                <Header as='h1'>Odaberite sezonu</Header>
+                <Header as='h1'>Odaberite Sezonu</Header>
                 <Divider />
 
                 <div className="season-selector_item">
