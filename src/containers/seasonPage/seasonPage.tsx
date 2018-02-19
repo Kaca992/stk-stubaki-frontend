@@ -6,37 +6,37 @@ import { autobind } from 'core-decorators';
 
 import { IStore } from '../../store';
 
-import './tablicaPage.scss';
+import './seasonPage.scss';
 import {tableData} from '../../mock/mockTable';
 import CustomTable, {IHeaderProps} from '../../components/customTable/customTable';
-import { headers } from './tablicaPage.utils';
+import { headers } from './seasonPage.utils';
 
-export interface ITablicaOwnProps {
+export interface ISeasonOwnProps {
     seasonId: any;
 }
 
-export interface ITablicaPageProps extends ITablicaOwnProps {
+export interface ISeasonPageProps extends ISeasonOwnProps {
 
 }
 
-export interface ITablicaPageState {
+export interface ISeasonPageState {
 
 }
 
-function mapStateToProps(state: IStore, ownProps: ITablicaOwnProps): Partial<ITablicaPageProps> {
+function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISeasonPageProps> {
     return {
         ...ownProps
     };
 }
 
-function mapDispatchToProps(dispatch: any): Partial<ITablicaPageProps> {
+function mapDispatchToProps(dispatch: any): Partial<ISeasonPageProps> {
     return {
 
     };
 }
 
-class TablicaPage extends React.Component<ITablicaPageProps, ITablicaPageState> {
-    constructor(props: ITablicaPageProps) {
+class TablicaPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
+    constructor(props: ISeasonPageProps) {
         super(props);
 
     }

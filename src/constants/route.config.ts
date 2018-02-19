@@ -1,13 +1,13 @@
 import { ILink } from '../components/header/header';
 
 export const SELECTOR_LINKS = {
-    tablicaPage: '/tablica'
+    seasonPage: '/season'
 };
 
 export const PATHS = {
     home: '/',
     seasonSelector: '/season-selector',
-    tablicaPage: '/tablica/:id'
+    seasonPage: '/season/:id'
 };
 
 export const HEADER_LINK: ILink = {
