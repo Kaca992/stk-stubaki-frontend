@@ -7,13 +7,19 @@ import './customTable.scss';
 import { SortDirectionEnum } from '../../common/enums';
 import { Table } from 'semantic-ui-react';
 import * as _ from 'lodash';
+import { MOBILE_BREAKPOINT } from '../../constants/utils';
 
 export interface IHeaderProps {
     id: string;
     value: string;
+    mobileValue?: string;
 
     columnClassName?: string;
     headerClassName?: string;
+}
+
+export interface ICustomTableState {
+    isMobile: boolean;
 }
 
 export interface ICustomTableProps {
@@ -27,10 +33,25 @@ export interface ICustomTableProps {
     onCustomRowRender?(row: any, header: IHeaderProps[]): JSX.Element;
 }
 
-export default class CustomTable extends React.Component<ICustomTableProps, any> {
+export default class CustomTable extends React.Component<ICustomTableProps, ICustomTableState> {
     constructor(props: ICustomTableProps) {
         super(props);
+        this.state = {
+            isMobile: false
+        };
+    }
 
+    componentDidMount() {
+        window.addEventListener("resize", this._resize);
+    }
+
+    @autobind
+    _resize() {
+        const htmlElement = document.querySelector('html');
+        const size = htmlElement !== null ? window.innerWidth / parseFloat(getComputedStyle(htmlElement)['font-size']) : 1000;
+        this.setState({
+            isMobile: size <= (MOBILE_BREAKPOINT + 5)
+        });
     }
 
     @autobind
@@ -44,7 +65,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, any>
                                 key={header.id}
                                 className={header.headerClassName}
                                 onClick={this._headerClicked(header.id)}>
-                                {header.value}
+                                {this.state.isMobile && header.mobileValue ? header.mobileValue : header.value}
                             </Table.HeaderCell>;
                         })
                     }
@@ -92,7 +113,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, any>
         const headers = this._getHeaders();
 
         return (
-            <Table className='custom-table'>
+            <Table unstackable className='custom-table'>
                 {this._renderHeaders(headers)}
                 {this._renderBody(headers)}
             </Table>

@@ -14,7 +14,8 @@ export const headers: IHeaderProps[] =
 
         {
             id: 'gamesPlayed',
-            value: 'OS'
+            value: 'Odigrani Susreti',
+            mobileValue: 'OS'
         },
 
         {
