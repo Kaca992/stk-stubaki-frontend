@@ -79,8 +79,8 @@ const reducer = (state= initialState, action: IAction): ISeasonState => {
 
 // selectors
 
-const getSeasons = (state: IStore) => state.seasonReducer.byId;
-const getAllIds = (state: IStore) => state.seasonReducer.allIds;
+const getSeasons = (state: IStore) => state.season.byId;
+const getAllIds = (state: IStore) => state.season.allIds;
 
 const selectors = {
     getAllSeasons : createSelector(

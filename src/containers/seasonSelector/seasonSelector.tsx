@@ -45,7 +45,7 @@ export interface ISeasonSelectorState {
 function mapStateToProps(state: IStore, ownProps: ISeasonSelectorOwnProps): ISeasonSelectorProps {
     return {
         ...ownProps,
-        isLoading: state.seasonReducer.UI.isLoading,
+        isLoading: state.season.UI.isLoading,
         seasonList: SeasonDuck.selectors.getAllSeasons(state),
     };
 }
