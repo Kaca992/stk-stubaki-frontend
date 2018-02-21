@@ -3,14 +3,28 @@
 #navigation-bar {
     width: 100%;
 
+    background-color: $navbar-background;
+    border: 1px solid rgba(34,36,38,.15);
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    border-radius: .28571429rem;
+    padding: $app-padding;
+    
     .navigation-bar__container {
-        background-color: $navbar-background;
         display: flex;
+
+        width: 100%;
+        max-width: $content-max-width;
+        
+        border: none;
+        border-radius: 0;
+        box-shadow: unset;
+
+        background-color: $navbar-background;
 
         justify-content: flex-start;
         align-items: center;
 
-        padding-left: 10%;
+        margin: 0;
         padding-right: 10%;
 
         .dropdown-link {
@@ -23,6 +37,7 @@
             @include font-size($navbar-font-size);
 
             &.header-link {
+                @include font-size($navbar-home-font-size);
                 font-weight: bold;
                 padding-right: 5%;
             }
@@ -30,7 +45,7 @@
     }
 
     .navigation-bar__drawer-menu {
-        padding-top: 2%;
+        padding: 2% 0 0 0;
         height: 100%;
 
         .custom-link {
@@ -38,6 +53,7 @@
             @include font-size($navbar-font-size);
 
             &.header-link {
+                @include font-size($navbar-home-font-size);
                 font-weight: bold;
             }
         }
