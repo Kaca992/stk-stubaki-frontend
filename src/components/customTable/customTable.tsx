@@ -14,6 +14,9 @@ export interface IHeaderProps {
     value: string;
     mobileValue?: string;
 
+    size?: number;
+    mobileSize?: number;
+
     columnClassName?: string;
     headerClassName?: string;
 }
@@ -36,8 +39,12 @@ export interface ICustomTableProps {
 export default class CustomTable extends React.Component<ICustomTableProps, ICustomTableState> {
     constructor(props: ICustomTableProps) {
         super(props);
+
+        const htmlElement = document.querySelector('html');
+        const size = htmlElement !== null ? window.innerWidth / parseFloat(getComputedStyle(htmlElement)['font-size']) : 1000;
+
         this.state = {
-            isMobile: false
+            isMobile: size <= (MOBILE_BREAKPOINT + 5)
         };
     }
 
@@ -61,9 +68,12 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                 <Table.Row>
                     {
                         headers.map((header, index) => {
+                            const sizeClassName: string = `${this.state.isMobile && header.mobileSize ? 'column-sm' : 'column'}-${this.state.isMobile && header.mobileSize ? header.mobileSize : header.size}`;
+                            const className = classNames(header.headerClassName, {[`${sizeClassName}`]: this.state.isMobile && header.mobileSize !== undefined || header.size !== undefined});
+
                             return <Table.HeaderCell
                                 key={header.id}
-                                className={header.headerClassName}
+                                className={className}
                                 onClick={this._headerClicked(header.id)}>
                                 {this.state.isMobile && header.mobileValue ? header.mobileValue : header.value}
                             </Table.HeaderCell>;
@@ -97,7 +107,10 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                         return <Table.Row key={index} className={rowClassName} onClick={() => this._rowClicked(rowValue)}>
                             {
                                 headers.map((header, cellIndex) => {
-                                    return <Table.Cell key={header.id} className={header.columnClassName}>
+                                    const sizeClassName = `${this.state.isMobile && header.mobileSize ? 'column-sm' : 'column'}-${this.state.isMobile && header.mobileSize ? header.mobileSize : header.size}`;
+                                    const className = classNames(header.columnClassName, {[`${sizeClassName}`]: this.state.isMobile && header.mobileSize !== undefined || header.size !== undefined});
+
+                                    return <Table.Cell key={header.id} className={className}>
                                         {header.id in rowValue ? rowValue[header.id] : ' '}
                                     </Table.Cell>;
                                 })

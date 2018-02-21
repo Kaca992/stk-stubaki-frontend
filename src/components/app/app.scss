@@ -4,6 +4,8 @@
     width: 100%;
 
     .app-content {
+        min-width: $content-min-width;
+        max-width: $content-max-width;
         background: $content-background;
         @include font-size($content-font-size);
         color: $content-font-color;

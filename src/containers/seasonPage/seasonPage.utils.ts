@@ -4,42 +4,50 @@ export const headers: IHeaderProps[] =
     [
         {
             id: 'position',
-            value: ' ',
+            value: '',
         },
 
         {
             id: 'name',
-            value: ' ',
+            value: '',
+            size: 5
         },
 
         {
             id: 'gamesPlayed',
             value: 'Odigrani Susreti',
-            mobileValue: 'OS'
+            mobileValue: 'OS',
+            size: 1,
+            mobileSize: 2
         },
 
         {
             id: 'won',
-            value: 'P'
+            value: 'P',
+            size: 1
         },
 
         {
             id: 'lost',
-            value: 'I'
+            value: 'I',
+            size: 1
         },
 
         {
             id: 'draw',
-            value: 'N'
+            value: 'N',
+            size: 1
         },
 
         {
             id: 'matches',
-            value: 'M'
+            value: 'M',
+            size: 1
         },
 
         {
             id: 'points',
-            value: 'B'
+            value: 'B',
+            size: 1
         }
     ];

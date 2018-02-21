@@ -1,7 +1,7 @@
 @import 'src/style/index';
 
 #navigation-bar {
-    width: 100%;    
+    width: 100%;
 
     .navigation-bar__container {
         background-color: $navbar-background;
@@ -44,7 +44,7 @@
     }
 
     .menu-link {
-        position: relative;
-        left: 30%;
+        position: absolute;
+        right: 5%;
     }
 }

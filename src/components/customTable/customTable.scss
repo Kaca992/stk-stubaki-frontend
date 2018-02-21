@@ -1,28 +1,36 @@
+@import '../../style/_grid-layout';
+
 table.table.custom-table {
     border-collapse: collapse;
     border: 0;
 	width: 100%;
-	float: left;
-    margin: 0 0 2em;
+	@include container();
 
     thead.custom-table_header {
-		border-bottom: 3px solid black;
-		th {
-			padding: 0.35em 0 .35em;
-            font-weight: 400;
-			text-align: center;
-			font-size: 1.1em;
-		}		
+		tr {
+			@include row();
+			width: 100%;
+
+			th {
+				padding: 0.35em 0 .35em;
+				font-weight: 400;
+				text-align: center;
+				font-size: 1.1em;
+				border-bottom: none;
+				background: transparent;
+			}	
+		}	
     }
     
     tbody.custom-table_body {
-		border-bottom: 3px solid black;
 		tr {
-			border-bottom: 2px solid #ddd;
+			@include row();
+			width: 100%;
 
 			td {
                 text-align: center;
 				padding: .75em 0;
+				border: none;
                 .row-number-cell {
                     text-align: left;
                 }
