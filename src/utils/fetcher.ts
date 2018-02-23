@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 import { appendServiceApiEndpoint } from './configOptions';
 
 export interface ICustomFetchOptions {
-    action: string;
+    action?: string;
     hasResult?: boolean;
 }
 
@@ -20,38 +20,46 @@ export function fetcher(url: string, customOptions: ICustomFetchOptions, dispatc
 
     const {action} = customOptions;
 
-    dispatch({
-        type: actionUtils.requestAction(action),
-        payload: null
-    });
+    if (action !== undefined) {
+        dispatch({
+            type: actionUtils.requestAction(action),
+            payload: null
+        });
+    }
 
     return fetch(fullUrl, options)
         .then(response => {
             if (response.ok) {
                 if (customOptions.hasResult) {
                     return response.json().then(jsonResponse => {
-                        dispatch({
-                            type: actionUtils.responseAction(action),
-                            payload: jsonResponse
-                        });
+                        if (action !== undefined) {
+                            dispatch({
+                                type: actionUtils.responseAction(action),
+                                payload: jsonResponse
+                            });
+                        }
 
                         return Promise.resolve(jsonResponse);
                     });
                 }
 
-                dispatch({
-                    type: actionUtils.responseAction(action),
-                    payload: null
-                });
+                if (action !== undefined) {
+                    dispatch({
+                        type: actionUtils.responseAction(action),
+                        payload: null
+                    });
+                }
 
                 return Promise.resolve();
             } else {
                 const error = new Error(response.statusText);
 
-                dispatch({
-                    type: actionUtils.errorAction(action),
-                    payload: null
-                });
+                if (action !== undefined) {
+                    dispatch({
+                        type: actionUtils.errorAction(action),
+                        payload: null
+                    });
+                }
 
                 throw error;
             }
