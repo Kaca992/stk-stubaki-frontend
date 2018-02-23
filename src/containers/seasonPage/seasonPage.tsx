@@ -10,6 +10,7 @@ import './seasonPage.scss';
 import {tableData} from '../../mock/mockTable';
 import CustomTable, {IHeaderProps} from '../../components/customTable/customTable';
 import { headers } from './seasonPage.utils';
+import { Header, Divider } from 'semantic-ui-react';
 
 export interface ISeasonOwnProps {
     seasonId: any;
@@ -44,6 +45,8 @@ class TablicaPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
     render() {
         return (
             <div>
+                <Header as='h2' textAlign='center'>1.Liga, Sezona 2017/2018.</Header>
+
                 <CustomTable
                     headers={headers}
                     data={tableData}

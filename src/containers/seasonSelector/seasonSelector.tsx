@@ -28,7 +28,6 @@ export interface ISeasonSelectorProps {
     selectedSeasonType?: SeasonTypeEnum;
     includedSeasonTypes?: SeasonTypeEnum[];
 
-    isLoading?: boolean;
     seasonList?: ISeasonInfo[];
 
     onSeasonTypeChanged?: (seasonType: SeasonTypeEnum) => void;
@@ -45,7 +44,6 @@ export interface ISeasonSelectorState {
 function mapStateToProps(state: IStore, ownProps: ISeasonSelectorOwnProps): ISeasonSelectorProps {
     return {
         ...ownProps,
-        isLoading: state.season.UI.isLoading,
         seasonList: SeasonDuck.selectors.getAllSeasons(state),
     };
 }
@@ -74,6 +72,9 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
     }
 
     componentDidMount() {
+        if (this.props.seasonList && this.props.seasonList.length > 0) {
+            return;
+        }
         if (this.props.initSeasonsList) {
             this.props.initSeasonsList();
         }
@@ -153,7 +154,6 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
 
     render() {
         let {
-            isLoading,
             seasonList,
             includedSeasonTypes,
             showNextBtn
@@ -163,12 +163,6 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
             selectedSeasonType
         } = this.state;
 
-        if (isLoading) {
-            return <div>
-                Loading...
-            </div>;
-        }
-
         const btnGroupClassName = "season-selector_season-group-btn";
         const btnGroupSelectedClassName = classNames("season-selector_season-group-btn", "season-selector_season-group-btn-selected");
 
@@ -177,7 +171,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
 
         return (
             <div className="season-selector">
-                <Header as='h1'>Odaberite Sezonu</Header>
+                <Header as='h2'>Odaberite Sezonu</Header>
                 <Divider />
 
                 <div className="season-selector_item">
