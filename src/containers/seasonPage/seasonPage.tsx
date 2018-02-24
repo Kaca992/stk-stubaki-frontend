@@ -11,8 +11,10 @@ import {tableData} from '../../mock/mockTable';
 import CustomTable, {IHeaderProps} from '../../components/customTable/customTable';
 import { headers } from './seasonPage.utils';
 import { Header, Divider, Loader } from 'semantic-ui-react';
-import { ISeasonInfo } from '../../common/dataStructures';
+import { ISeasonInfo, ITableTeamInfo } from '../../common/dataStructures';
 import { getSeasonDisplayName } from '../../utils/displayFormaters';
+import { CompetitionDuck } from '../../ducks';
+import { withRouter } from 'react-router';
 
 export interface ISeasonOwnProps {
     seasonId: any;
@@ -20,8 +22,12 @@ export interface ISeasonOwnProps {
 
 export interface ISeasonPageProps extends ISeasonOwnProps {
     seasonInfo: ISeasonInfo;
+    teams: ITableTeamInfo[];
 
+    isLoadingTeams: boolean;
     isLoadingSeasons: boolean;
+
+    getTeamInfos(seasonId: number): void;
 }
 
 export interface ISeasonPageState {
@@ -30,15 +36,17 @@ export interface ISeasonPageState {
 
 function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISeasonPageProps> {
     return {
-        ...ownProps,
         seasonInfo: state.season.byId[ownProps.seasonId],
+        teams: state.competition.teams,
+
+        isLoadingTeams: state.competition.UI.isLoadingTeams,
         isLoadingSeasons: state.season.UI.isLoading
     };
 }
 
 function mapDispatchToProps(dispatch: any): Partial<ISeasonPageProps> {
     return {
-
+        getTeamInfos: (seasonId: number) => dispatch(CompetitionDuck.actionCreators.getTeamInfos(seasonId))
     };
 }
 
@@ -48,14 +56,20 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
 
     }
 
+    componentDidMount() {
+        this.props.getTeamInfos(this.props.seasonId);
+    }
+
     render() {
         const {
             seasonId,
             seasonInfo,
-            isLoadingSeasons
+            teams,
+            isLoadingSeasons,
+            isLoadingTeams
         } = this.props;
 
-        if (!seasonInfo || isLoadingSeasons) {
+        if (!seasonInfo || isLoadingSeasons || isLoadingTeams) {
             return <Loader active inline='centered' size='large' > Učitavanje... </Loader>;
         }
 
@@ -65,7 +79,7 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
 
                 <CustomTable
                     headers={headers}
-                    data={tableData}
+                    data={teams}
                     rowKey='teamId'
                 />
             </div>

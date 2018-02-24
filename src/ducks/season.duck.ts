@@ -9,7 +9,7 @@ import { SeasonController } from '../constants/service.endpoints';
 // action types
 
 const actionTypes = {
-    SEASON_LIST: 'SEASON_LIST'
+    SEASON_LIST: '@season/SEASON_LIST'
 };
 
 // action creators

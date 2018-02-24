@@ -16,7 +16,7 @@ const reducersApp = combineReducers({
 export interface IStore {
   main: IMainState;
   season: ISeasonState;
-  competititon: ICompetitionState;
+  competition: ICompetitionState;
 }
 
 function configureStore() {
