@@ -20,16 +20,10 @@ const actionCreators = {
 
 export interface ICompetitionState {
     teams: ITableTeamInfo[];
-    UI: {
-        isLoading: false
-    };
 }
 
 const initialState: ICompetitionState = {
-    teams: [],
-    UI: {
-        isLoading: false
-    }
+    teams: []
 };
 
 const reducer = (state= initialState, action: IAction): ICompetitionState => {

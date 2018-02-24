@@ -16,26 +16,16 @@ const actionCreators = {
 
 // reducer
 export interface IMainState {
-    isLoading: boolean;
+
 }
 
 const initialState: IMainState = {
-    isLoading: false
+
 };
 
 const reducer = (state= initialState, action: IAction): IMainState => {
     switch (action.type) {
-        case actionUtils.requestAction(SeasonDuck.actionTypes.SEASON_LIST):
-            return {
-                ...state,
-                isLoading: true
-            };
-        case actionUtils.responseAction(SeasonDuck.actionTypes.SEASON_LIST):
-        case actionUtils.errorAction(SeasonDuck.actionTypes.SEASON_LIST):
-            return {
-                ...state,
-                isLoading: false
-            };
+
     }
     return state;
 };

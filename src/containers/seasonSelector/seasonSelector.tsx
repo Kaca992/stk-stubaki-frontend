@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
 
-import { Button, Divider, Header, Dropdown, DropdownItemProps, Label, Icon } from 'semantic-ui-react';
+import { Button, Divider, Header, Dropdown, DropdownItemProps, Label, Icon, Loader } from 'semantic-ui-react';
 
 import { IStore } from '../../store';
 import { SeasonDuck } from '../../ducks';
@@ -34,6 +34,8 @@ export interface ISeasonSelectorProps {
     onSeasonIdChanged?: (seasonId: number) => void;
 
     initSeasonsList?: () => void;
+
+    isLoading: boolean;
 }
 
 export interface ISeasonSelectorState {
@@ -41,14 +43,15 @@ export interface ISeasonSelectorState {
     selectedSeasonId?: number;
 }
 
-function mapStateToProps(state: IStore, ownProps: ISeasonSelectorOwnProps): ISeasonSelectorProps {
+function mapStateToProps(state: IStore, ownProps: ISeasonSelectorOwnProps): Partial<ISeasonSelectorProps> {
     return {
         ...ownProps,
         seasonList: SeasonDuck.selectors.getAllSeasons(state),
+        isLoading: state.season.UI.isLoading
     };
 }
 
-function mapDispatchToProps(dispatch: any): ISeasonSelectorProps {
+function mapDispatchToProps(dispatch: any): Partial<ISeasonSelectorProps> {
     return {
         initSeasonsList: () => dispatch(SeasonDuck.actionCreators.initSeasonsList())
     };
@@ -72,7 +75,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
     }
 
     componentDidMount() {
-        if (this.props.seasonList && this.props.seasonList.length > 0) {
+        if (this.props.seasonList && this.props.seasonList.length > 0 || this.props.isLoading) {
             return;
         }
         if (this.props.initSeasonsList) {
@@ -156,12 +159,17 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
         let {
             seasonList,
             includedSeasonTypes,
-            showNextBtn
+            showNextBtn,
+            isLoading
         } = this.props;
 
         let {
             selectedSeasonType
         } = this.state;
+
+        if (isLoading) {
+            return <Loader active inline='centered' size='large' > Učitavanje... </Loader>;
+        }
 
         const btnGroupClassName = "season-selector_season-group-btn";
         const btnGroupSelectedClassName = classNames("season-selector_season-group-btn", "season-selector_season-group-btn-selected");

@@ -33,15 +33,29 @@ const actionCreators = {
 export interface ISeasonState {
     byId: { [key: string]: ISeasonInfo };
     allIds: number[];
+    UI: {
+        isLoading: boolean;
+    };
 }
 
 const initialState: ISeasonState = {
     byId: {},
-    allIds: []
+    allIds: [],
+    UI: {
+        isLoading: false
+    }
 };
 
 const reducer = (state= initialState, action: IAction): ISeasonState => {
     switch (action.type) {
+        case actionUtils.requestAction(actionTypes.SEASON_LIST):
+            return {
+                ...state,
+                UI: {
+                    ...state.UI,
+                    isLoading: true
+                }
+            };
         case actionUtils.responseAction(actionTypes.SEASON_LIST):
             let seasons = action.payload as ISeasonInfo[];
             let allIds: number[] = [];
@@ -55,7 +69,19 @@ const reducer = (state= initialState, action: IAction): ISeasonState => {
             return {
                 ...state,
                 allIds,
-                byId
+                byId,
+                UI: {
+                    ...state.UI,
+                    isLoading: false
+                }
+            };
+        case actionUtils.errorAction(actionTypes.SEASON_LIST):
+            return {
+                ...state,
+                UI: {
+                    ...state.UI,
+                    isLoading: false
+                }
             };
     }
     return state;

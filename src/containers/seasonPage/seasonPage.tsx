@@ -10,14 +10,18 @@ import './seasonPage.scss';
 import {tableData} from '../../mock/mockTable';
 import CustomTable, {IHeaderProps} from '../../components/customTable/customTable';
 import { headers } from './seasonPage.utils';
-import { Header, Divider } from 'semantic-ui-react';
+import { Header, Divider, Loader } from 'semantic-ui-react';
+import { ISeasonInfo } from '../../common/dataStructures';
+import { getSeasonDisplayName } from '../../utils/displayFormaters';
 
 export interface ISeasonOwnProps {
     seasonId: any;
 }
 
 export interface ISeasonPageProps extends ISeasonOwnProps {
+    seasonInfo: ISeasonInfo;
 
+    isLoadingSeasons: boolean;
 }
 
 export interface ISeasonPageState {
@@ -26,7 +30,9 @@ export interface ISeasonPageState {
 
 function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISeasonPageProps> {
     return {
-        ...ownProps
+        ...ownProps,
+        seasonInfo: state.season.byId[ownProps.seasonId],
+        isLoadingSeasons: state.season.UI.isLoading
     };
 }
 
@@ -36,16 +42,26 @@ function mapDispatchToProps(dispatch: any): Partial<ISeasonPageProps> {
     };
 }
 
-class TablicaPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
+class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
     constructor(props: ISeasonPageProps) {
         super(props);
 
     }
 
     render() {
+        const {
+            seasonId,
+            seasonInfo,
+            isLoadingSeasons
+        } = this.props;
+
+        if (!seasonInfo || isLoadingSeasons) {
+            return <Loader active inline='centered' size='large' > Učitavanje... </Loader>;
+        }
+
         return (
             <div>
-                <Header as='h2' textAlign='center'>1.Liga, Sezona 2017/2018.</Header>
+                <Header as='h2' textAlign='center'>{`${getSeasonDisplayName(seasonInfo.type)}, Sezona ${seasonInfo.godina}.`}</Header>
 
                 <CustomTable
                     headers={headers}
@@ -57,4 +73,4 @@ class TablicaPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TablicaPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SeasonPage);
