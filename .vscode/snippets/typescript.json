@@ -1,5 +1,5 @@
 {
-    "TS React Comp":{
+    "TS React Comp": {
         "prefix": "_duck",
         "body": [
             "import { createSelector } from 'reselect';",
@@ -26,10 +26,10 @@
             "};",
             "",
             "const reducer = (state= initialState, action: IAction): I${1}State => {",
-                "\tswitch (action.type) {",
-                "",
-                "\t}",
-                "\treturn state;",
+            "\tswitch (action.type) {",
+            "",
+            "\t}",
+            "\treturn state;",
             "};",
             "",
             "// selectors",
@@ -38,13 +38,38 @@
             "};",
             "",
             "export const ${1}Duck = {",
-                "\tactionTypes,",
-                "\tactionCreators,",
-                "\treducer,",
-                "\tselectors",
+            "\tactionTypes,",
+            "\tactionCreators,",
+            "\treducer,",
+            "\tselectors",
             "};",
             ""
         ],
         "description": "Redux duck template"
+    },
+    "TS Interface": {
+        "prefix": "_interface",
+        "body": [
+            "export interface I${1:Test} {",
+            "\t${2}",
+            "}${3}"
+        ],
+        "description": "TS Interface"
+    },
+    "TS Function": {
+        "prefix": "_func",
+        "body": [
+            "export function ${1:init}(${2}) {",
+            "\t${3}",
+            "}${4}"
+        ]
+    },
+    "TS Function With no Export": {
+        "prefix": "_func-noexport",
+        "body": [
+            "function ${1:init}(${2}) {",
+            "\t${3}",
+            "}${4}"
+        ]
     }
 }

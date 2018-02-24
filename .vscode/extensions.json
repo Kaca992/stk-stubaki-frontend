@@ -6,6 +6,7 @@
         "robertohuertasm.vscode-icons",
         "mrmlnc.vscode-scss",
         "rebornix.project-snippets",
-        "msjsdiag.debugger-for-chrome"
+        "msjsdiag.debugger-for-chrome",
+        "CoenraadS.bracket-pair-colorizer"
 	]
 }

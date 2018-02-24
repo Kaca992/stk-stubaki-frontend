@@ -1,6 +1,6 @@
 {
     "TS React Comp":{
-        "prefix": "_tsrcmp",
+        "prefix": "_cmp",
         "body": [
             "import * as React from 'react';\n",
 
@@ -34,7 +34,7 @@
     },
 
     "TS React-Redux Comp":{
-        "prefix": "_tsrdx",
+        "prefix": "_rdx",
         "body": [
             "import * as React from 'react';",
             "import { connect } from 'react-redux';\n",
@@ -85,5 +85,47 @@
             ""
         ],
         "description": "React-Redux Component snippet"
+    },
+    "TS React Method":{
+        "prefix": "_meth",
+        "body": [
+            "",
+            "\t@autobind",
+            "\t${1:_method}(${2}) {",
+            "\t\t${3}",
+            "\t}",
+            ""
+        ],
+        "description": "TS React method"
+    },
+
+    "TS React Props Deconstruct":{
+        "prefix": "_dprop",
+        "body": [
+            "const {",
+            "\t${1}",
+            "} = this.props;${2}"
+        ],
+        "description": "TS React Props Deconstruct"
+    },
+
+        "TS React State Deconstruct":{
+        "prefix": "_dstate",
+        "body": [
+            "const {",
+            "\t${1}",
+            "} = this.state;${2}"
+        ],
+        "description": "TS React State Deconstruct"
+    },
+
+        "TS Interface":{
+        "prefix": "_interface",
+        "body": [
+            "export interface I${1:Test} {",
+            "\t${2}",
+            "}${3}"
+        ],
+        "description": "TS Interface"
     }
 }
