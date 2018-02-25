@@ -1,4 +1,4 @@
-@import '../../style/_grid-layout';
+@import '../../style/index';
 
 table.table.custom-table {
     border-collapse: collapse;
@@ -11,6 +11,10 @@ table.table.custom-table {
 			@include row();
 			width: 100%;
 
+			&.clickable_header {
+				cursor: pointer;
+			}
+
 			th {
 				padding: .20em .10em;
 				font-weight: 400;
@@ -18,7 +22,7 @@ table.table.custom-table {
 				font-size: 1.1em;
 				border-bottom: none;
 				background: transparent;
-			}	
+			}
 		}	
     }
     
@@ -26,6 +30,13 @@ table.table.custom-table {
 		tr {
 			@include row();
 			width: 100%;
+
+			&.clickable_row {
+				cursor: pointer;
+				&:hover {
+					background: $row-on-hover;
+				}
+			}
 
 			td {
 				padding: .20em .10em;

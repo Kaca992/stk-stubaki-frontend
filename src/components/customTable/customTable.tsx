@@ -78,7 +78,10 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                                 return;
                             }
                             const sizeClassName: string = `${this.state.isMobile && header.mobileSize ? 'column-sm' : 'column'}-${this.state.isMobile && header.mobileSize ? header.mobileSize : header.size}`;
-                            const className = classNames(header.headerClassName, {[`${sizeClassName}`]: this.state.isMobile && header.mobileSize !== undefined || header.size !== undefined});
+                            const className = classNames(header.headerClassName, {
+                                [`${sizeClassName}`]: this.state.isMobile && header.mobileSize !== undefined || header.size !== undefined,
+                                clickable_header: this.props.onHeaderClicked !== undefined
+                            });
 
                             const HeaderCell = <Table.HeaderCell
                                 key={header.id}
@@ -88,7 +91,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                                 {this.state.isMobile && header.mobileValue ? header.mobileValue : header.value}
                             </Table.HeaderCell>;
 
-                            return header.tooltip ? <Popup trigger={HeaderCell} content={header.tooltip} position='top center'/>
+                            return header.tooltip ? <Popup key={header.id} trigger={HeaderCell} content={header.tooltip} position='top center'/>
                                                     : HeaderCell;
                         })
                     }
@@ -114,8 +117,11 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                         }
 
                         const rowKey = rowValue[this.props.rowKey];
-                        const rowClassName = this.props.rowClassNames && rowKey in this.props.rowClassNames ?
+                        const baseRowClassName = this.props.rowClassNames && rowKey in this.props.rowClassNames ?
                             this.props.rowClassNames[rowKey] : undefined;
+                        const rowClassName = classNames(baseRowClassName, {
+                            clickable_row: this.props.onRowClicked !== undefined
+                        });
 
                         return <Table.Row key={index} className={rowClassName} onClick={() => this._rowClicked(rowValue)}>
                             {

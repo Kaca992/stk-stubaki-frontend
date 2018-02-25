@@ -62,6 +62,11 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
         this.props.getTeamInfos(this.props.seasonId);
     }
 
+    @autobind
+    _teamRowClicked(row: any) {
+        return;
+    }
+
     render() {
         const {
             seasonId,
@@ -85,6 +90,7 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
                     headers={headers}
                     data={teams}
                     rowKey='teamId'
+                    onRowClicked={this._teamRowClicked}
                 />
             </div>
         );
