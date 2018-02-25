@@ -23,7 +23,7 @@ const actionCreators = {
                 hasResult: true
             };
 
-            return fetcher(url, options, dispatch, {method: 'POST'});
+            return fetcher(url, options, dispatch, {method: 'GET'});
         };
     },
 };
