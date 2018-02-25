@@ -59,7 +59,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         }
 
         return <Menu.Menu key={key}>
-            <Dropdown item text={item.text} simple className='dropdown-link'>
+            <Dropdown item open={false} text={item.text} simple className='dropdown-link'>
                 <Dropdown.Menu>
                     {item.children && item.children.map((value, index) => <Dropdown.Item key={index}><CustomLink to={value.url} text={value.text} icon={value.icon} /></Dropdown.Item>)}
                 </Dropdown.Menu>

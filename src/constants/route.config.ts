@@ -27,6 +27,14 @@ export const NAVBAR_LINKS: ILink[] = [
             text: "Tablica",
             url: PATHS.seasonSelector,
         },
+        {
+            text: "Rezultati",
+            url: PATHS.seasonSelector,
+        },
+        {
+            text: "Jako dugi podnaslov",
+            url: PATHS.seasonSelector,
+        }
     ],
   },
 

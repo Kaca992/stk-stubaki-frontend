@@ -43,7 +43,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
         super(props);
 
         const htmlElement = document.querySelector('html');
-        const size = htmlElement !== null ? window.innerWidth / parseFloat(getComputedStyle(htmlElement)['font-size']) : 1000;
+        const size = htmlElement !== null ? window.innerWidth : 1000;
 
         this.state = {
             isMobile: size <= (MOBILE_BREAKPOINT + 5)
@@ -57,7 +57,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
     @autobind
     _resize() {
         const htmlElement = document.querySelector('html');
-        const size = htmlElement !== null ? window.innerWidth / parseFloat(getComputedStyle(htmlElement)['font-size']) : 1000;
+        const size = htmlElement !== null ? window.innerWidth : 1000;
         this.setState({
             isMobile: size <= (MOBILE_BREAKPOINT + 5)
         });
@@ -115,7 +115,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                                     return <Table.Cell
                                         key={header.id}
                                         className={className}
-                                        textAlign={header.columnTextAlign}>
+                                        textAlign={header.columnTextAlign ? header.columnTextAlign : 'center'}>
                                         {header.id in rowValue ? rowValue[header.id] : ' '}
                                     </Table.Cell>;
                                 })

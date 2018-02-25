@@ -1,1 +1,1 @@
-export const MOBILE_BREAKPOINT = 30;
+export const MOBILE_BREAKPOINT = 500;
