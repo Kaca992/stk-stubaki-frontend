@@ -1,0 +1,51 @@
+@import 'src/style/index';
+
+.custom_text-small {
+    @include font-size($small-font-size);
+
+    @include mobile {
+        @include font-size($small-mobile-font-size);
+    }
+}
+
+.custom_text-normal {
+    @include font-size($normal-font-size);
+
+    @include mobile {
+        @include font-size($normal-mobile-font-size);
+    }
+}
+
+.custom_text-sub-header {
+    @include font-size($sub-header-font-size);
+    font-weight: bold;
+
+    @include mobile {
+        @include font-size($sub-header-mobile-font-size);
+    }
+}
+
+.custom_text-main-header {
+    @include font-size($main-header-font-size);
+    font-weight: bold;
+
+    @include mobile {
+        @include font-size($main-header-mobile-font-size);
+    }
+}
+
+.custom_text-bold {
+    font-weight: bold;
+}
+
+.custom_text-align-left {
+    text-align: left;
+}
+
+.custom_text-align-center {
+    text-align: center;
+}
+
+.custom_text-align-right {
+    text-align: right;
+}

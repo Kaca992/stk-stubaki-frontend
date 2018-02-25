@@ -8,12 +8,13 @@ import { Button, Divider, Header, Dropdown, DropdownItemProps, Label, Icon, Load
 
 import { IStore } from '../../store';
 import { SeasonDuck } from '../../ducks';
-import { SeasonTypeEnum } from '../../common/enums';
+import { SeasonTypeEnum, CustomTextTypeEnum } from '../../common/enums';
 import { ISeasonInfo } from '../../common/dataStructures';
 import { getSeasonDisplayName } from '../../utils/displayFormaters';
 
 import './seasonSelector.scss';
 import ButtonLink from '../../components/buttonLink/buttonLink';
+import CustomText from '../../components/customText/customText';
 
 export interface ISeasonSelectorOwnProps {
     urlLink?: string;
@@ -179,7 +180,9 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
 
         return (
             <div className="season-selector">
-                <Header as='h2'>Odaberite Sezonu</Header>
+                <CustomText text="Odaberite Sezonu"
+                            textType={CustomTextTypeEnum.mainHeader}
+                            textAlign='left'/>
                 <Divider />
 
                 <div className="season-selector_item">
@@ -197,7 +200,7 @@ class SeasonSelector extends React.Component<ISeasonSelectorProps, ISeasonSelect
                 </div>
 
                 {
-                    showNextBtn && <ButtonLink to={this._createUrlLink(selectedSeasonOption)} className="season-selector_btn" size="large" icon labelPosition='right'>
+                    showNextBtn && <ButtonLink to={this._createUrlLink(selectedSeasonOption)} className="season-selector_btn" size="medium" icon labelPosition='right'>
                         Dalje
                         <Icon name="arrow right" />
                     </ButtonLink>

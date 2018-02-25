@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 
 import './customTable.scss';
 import { SortDirectionEnum } from '../../common/enums';
-import { Table } from 'semantic-ui-react';
+import { Table, Popup } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import { MOBILE_BREAKPOINT } from '../../constants/utils';
 
@@ -13,9 +13,11 @@ export interface IHeaderProps {
     id: string;
     value: string;
     mobileValue?: string;
+    tooltip?: string;
 
     size?: number;
     mobileSize?: number;
+    isHiddenOnMobile?: boolean;
 
     columnClassName?: string;
     headerClassName?: string;
@@ -31,6 +33,8 @@ export interface ICustomTableProps {
     data: any[];
     rowKey: string;
     headers?: IHeaderProps[];
+
+    className?: string;
     rowClassNames?: {[rowId: string]: string};
 
     onRowClicked?(row: any): void;
@@ -70,15 +74,22 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                 <Table.Row>
                     {
                         headers.map((header, index) => {
+                            if (this.state.isMobile && header.isHiddenOnMobile) {
+                                return;
+                            }
                             const sizeClassName: string = `${this.state.isMobile && header.mobileSize ? 'column-sm' : 'column'}-${this.state.isMobile && header.mobileSize ? header.mobileSize : header.size}`;
                             const className = classNames(header.headerClassName, {[`${sizeClassName}`]: this.state.isMobile && header.mobileSize !== undefined || header.size !== undefined});
 
-                            return <Table.HeaderCell
+                            const HeaderCell = <Table.HeaderCell
                                 key={header.id}
                                 className={className}
+                                singleLine
                                 onClick={this._headerClicked(header.id)}>
                                 {this.state.isMobile && header.mobileValue ? header.mobileValue : header.value}
                             </Table.HeaderCell>;
+
+                            return header.tooltip ? <Popup trigger={HeaderCell} content={header.tooltip} position='top center'/>
+                                                    : HeaderCell;
                         })
                     }
                 </Table.Row>
@@ -109,6 +120,10 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                         return <Table.Row key={index} className={rowClassName} onClick={() => this._rowClicked(rowValue)}>
                             {
                                 headers.map((header, cellIndex) => {
+                                    if (this.state.isMobile && header.isHiddenOnMobile) {
+                                        return;
+                                    }
+
                                     const sizeClassName = `${this.state.isMobile && header.mobileSize ? 'column-sm' : 'column'}-${this.state.isMobile && header.mobileSize ? header.mobileSize : header.size}`;
                                     const className = classNames(header.columnClassName, {[`${sizeClassName}`]: this.state.isMobile && header.mobileSize !== undefined || header.size !== undefined});
 
@@ -129,9 +144,10 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
 
     render() {
         const headers = this._getHeaders();
+        const className = classNames('custom-table', this.props.className);
 
         return (
-            <Table unstackable className='custom-table'>
+            <Table unstackable className={className}>
                 {this._renderHeaders(headers)}
                 {this._renderBody(headers)}
             </Table>

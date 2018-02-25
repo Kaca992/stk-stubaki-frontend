@@ -15,6 +15,8 @@ import { ISeasonInfo, ITableTeamInfo } from '../../common/dataStructures';
 import { getSeasonDisplayName } from '../../utils/displayFormaters';
 import { CompetitionDuck } from '../../ducks';
 import { withRouter } from 'react-router';
+import CustomText from '../../components/customText/customText';
+import { CustomTextTypeEnum } from '../../common/enums';
 
 export interface ISeasonOwnProps {
     seasonId: any;
@@ -75,7 +77,9 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
 
         return (
             <div>
-                <Header as='h2' textAlign='center'>{`${getSeasonDisplayName(seasonInfo.type)}, Sezona ${seasonInfo.godina}.`}</Header>
+                <CustomText text={`${getSeasonDisplayName(seasonInfo.type)}, Sezona ${seasonInfo.godina}.`}
+                            textType={CustomTextTypeEnum.mainHeader}
+                            textAlign='center'/>
 
                 <CustomTable
                     headers={headers}

@@ -8,3 +8,10 @@ export enum SortDirectionEnum {
     ASC = 'ascending',
     DESC = 'descending'
 }
+
+export enum CustomTextTypeEnum {
+    small= 'small',
+    normal= 'normal',
+    mainHeader = 'main-header',
+    subHeader = 'sub-header'
+}

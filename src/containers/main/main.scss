@@ -27,6 +27,7 @@
 
         @include mobile {
             margin: 0;
+            @include font-size($content-mobile-font-size);
             padding: $content-padding-mobile;
         }
 
