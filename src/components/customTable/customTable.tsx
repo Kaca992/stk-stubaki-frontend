@@ -19,6 +19,8 @@ export interface IHeaderProps {
 
     columnClassName?: string;
     headerClassName?: string;
+
+    columnTextAlign?: 'center' | 'left' | 'right';
 }
 
 export interface ICustomTableState {
@@ -110,7 +112,10 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
                                     const sizeClassName = `${this.state.isMobile && header.mobileSize ? 'column-sm' : 'column'}-${this.state.isMobile && header.mobileSize ? header.mobileSize : header.size}`;
                                     const className = classNames(header.columnClassName, {[`${sizeClassName}`]: this.state.isMobile && header.mobileSize !== undefined || header.size !== undefined});
 
-                                    return <Table.Cell key={header.id} className={className}>
+                                    return <Table.Cell
+                                        key={header.id}
+                                        className={className}
+                                        textAlign={header.columnTextAlign}>
                                         {header.id in rowValue ? rowValue[header.id] : ' '}
                                     </Table.Cell>;
                                 })

@@ -5,12 +5,14 @@ export const headers: IHeaderProps[] =
         {
             id: 'position',
             value: '',
+            columnTextAlign: 'left'
         },
 
         {
             id: 'name',
             value: '',
-            size: 5
+            size: 5,
+            columnTextAlign: 'left'
         },
 
         {
