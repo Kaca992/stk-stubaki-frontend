@@ -21,3 +21,12 @@ export interface ITableTeamInfo {
     negativePoints?: number;
     penaltyDesc?: string;
 }
+
+export interface ITablePlayerInfo {
+    playerId: number;
+    playerName: string;
+    teamName: string;
+
+    won: number;
+    lost: number;
+}

@@ -7,11 +7,11 @@ import { autobind } from 'core-decorators';
 import { IStore } from '../../store';
 
 import './seasonPage.scss';
-import {tableData} from '../../mock/mockTable';
-import CustomTable, {IHeaderProps} from '../../components/customTable/customTable';
-import { headers } from './seasonPage.utils';
+import { tableData } from '../../mock/mockTable';
+import CustomTable, { IHeaderProps } from '../../components/customTable/customTable';
+import { teamHeaders, playerHeaders } from './seasonPage.utils';
 import { Header, Divider, Loader } from 'semantic-ui-react';
-import { ISeasonInfo, ITableTeamInfo } from '../../common/dataStructures';
+import { ISeasonInfo, ITableTeamInfo, ITablePlayerInfo } from '../../common/dataStructures';
 import { getSeasonDisplayName } from '../../utils/displayFormaters';
 import { CompetitionDuck } from '../../ducks';
 import { withRouter } from 'react-router';
@@ -25,8 +25,9 @@ export interface ISeasonOwnProps {
 export interface ISeasonPageProps extends ISeasonOwnProps {
     seasonInfo: ISeasonInfo;
     teams: ITableTeamInfo[];
+    players: ITablePlayerInfo[];
 
-    isLoadingTeams: boolean;
+    isLoading: boolean;
     isLoadingSeasons: boolean;
 
     getTeamInfos(seasonId: number): void;
@@ -40,8 +41,9 @@ function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISea
     return {
         seasonInfo: state.season.byId[ownProps.seasonId],
         teams: state.competition.teams,
+        players: state.competition.players,
 
-        isLoadingTeams: state.competition.UI.isLoadingTeams,
+        isLoading: state.competition.UI.isLoading,
         isLoadingSeasons: state.season.UI.isLoading
     };
 }
@@ -72,24 +74,38 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
             seasonId,
             seasonInfo,
             teams,
+            players,
             isLoadingSeasons,
-            isLoadingTeams
+            isLoading
         } = this.props;
 
-        if (!seasonInfo || isLoadingSeasons || isLoadingTeams) {
+        if (!seasonInfo || isLoadingSeasons || isLoading) {
             return <Loader active inline='centered' size='large' > Učitavanje... </Loader>;
         }
 
         return (
-            <div>
+            <div className="season-page">
                 <CustomText text={`${getSeasonDisplayName(seasonInfo.type)}, Sezona ${seasonInfo.godina}.`}
-                            textType={CustomTextTypeEnum.mainHeader}
-                            textAlign='center'/>
+                    textType={CustomTextTypeEnum.mainHeader}
+                    textAlign='center' />
 
                 <CustomTable
-                    headers={headers}
+                    className="team-table"
+                    headers={teamHeaders}
                     data={teams}
                     rowKey='teamId'
+                    onRowClicked={this._teamRowClicked}
+                />
+
+                <CustomText text={`Najbolji Pojedinci`}
+                    textType={CustomTextTypeEnum.subHeader}
+                    textAlign='center' />
+
+                <CustomTable
+                    className="players-table"
+                    headers={playerHeaders}
+                    data={players}
+                    rowKey='playerId'
                     onRowClicked={this._teamRowClicked}
                 />
             </div>

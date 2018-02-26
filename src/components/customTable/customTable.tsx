@@ -150,7 +150,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
 
     render() {
         const headers = this._getHeaders();
-        const className = classNames('custom-table', this.props.className);
+        const className = classNames(this.props.className, 'custom-table');
 
         return (
             <Table unstackable className={className}>

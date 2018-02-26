@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { fetcher, actionUtils, ICustomFetchOptions } from '../utils/fetcher';
 import { IAction } from '../common/interfaces';
 import { IStore } from '../store/index';
-import { ITableTeamInfo } from '../common/dataStructures';
+import { ITableTeamInfo, ITablePlayerInfo } from '../common/dataStructures';
 import { CompetitionController } from '../constants/service.endpoints';
 // action types
 
@@ -31,17 +31,19 @@ const actionCreators = {
 
 export interface ICompetitionState {
     teams: ITableTeamInfo[];
+    players: ITablePlayerInfo[];
 
     UI: {
-        isLoadingTeams: boolean;
+        isLoading: boolean;
     };
 }
 
 const initialState: ICompetitionState = {
     teams: [],
+    players: [],
 
     UI: {
-        isLoadingTeams: true
+        isLoading: true
     }
 };
 
@@ -52,16 +54,17 @@ const reducer = (state= initialState, action: IAction): ICompetitionState => {
                 ...state,
                 UI: {
                     ...state.UI,
-                    isLoadingTeams: true
+                    isLoading: true
                 }
             };
         case actionUtils.responseAction(actionTypes.GET_TEAM_INFOS):
             return {
                 ...state,
                 teams: action.payload.teams,
+                players: action.payload.players,
                 UI: {
                     ...state.UI,
-                    isLoadingTeams: false
+                    isLoading: false
                 }
             };
         case actionUtils.errorAction(actionTypes.GET_TEAM_INFOS):
@@ -69,7 +72,7 @@ const reducer = (state= initialState, action: IAction): ICompetitionState => {
                 ...state,
                 UI: {
                     ...state.UI,
-                    isLoadingTeams: false
+                    isLoading: false
                 }
             };
     }

@@ -1,0 +1,15 @@
+.season-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+
+    .team-table {
+        width: 100%;
+    }
+
+    .players-table {
+        width: 70%;
+    }
+}
