@@ -36,6 +36,7 @@ export interface ICustomTableProps {
 
     className?: string;
     rowClassNames?: {[rowId: string]: string};
+    isStripped?: boolean;
 
     onRowClicked?(row: any): void;
     onHeaderClicked?(headerId: string): void;
@@ -153,7 +154,7 @@ export default class CustomTable extends React.Component<ICustomTableProps, ICus
         const className = classNames(this.props.className, 'custom-table');
 
         return (
-            <Table unstackable className={className}>
+            <Table unstackable striped={this.props.isStripped} className={className}>
                 {this._renderHeaders(headers)}
                 {this._renderBody(headers)}
             </Table>

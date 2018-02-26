@@ -94,6 +94,7 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
                     headers={teamHeaders}
                     data={teams}
                     rowKey='teamId'
+                    isStripped
                     onRowClicked={this._teamRowClicked}
                 />
 
@@ -106,6 +107,7 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
                     headers={playerHeaders}
                     data={players}
                     rowKey='playerId'
+                    isStripped
                     onRowClicked={this._teamRowClicked}
                 />
             </div>

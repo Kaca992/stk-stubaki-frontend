@@ -16,7 +16,6 @@ $grid-gutter-width: 1em;
   padding-left:  floor(($gutter / 2));
   padding-right: ceil(($gutter / 2));
   max-width: $max-grid-size;
-  min-width: $min-grid-size;
   @include clearfix;
 }
 
