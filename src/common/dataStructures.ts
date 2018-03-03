@@ -1,4 +1,4 @@
-import {SeasonTypeEnum} from './enums';
+import {SeasonTypeEnum, HeadToHeadStatusEnum} from './enums';
 
 export interface ISeasonInfo {
     id: number;
@@ -29,4 +29,13 @@ export interface ITablePlayerInfo {
 
     won: number;
     lost: number;
+}
+
+export interface IHeadToHeadDict {
+    [id: number]: IHeadToHeadInfo[];
+}
+
+export interface IHeadToHeadInfo {
+    opponentId: number;
+    scoreStatus: HeadToHeadStatusEnum;
 }

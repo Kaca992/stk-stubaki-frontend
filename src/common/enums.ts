@@ -15,3 +15,9 @@ export enum CustomTextTypeEnum {
     mainHeader = 'main-header',
     subHeader = 'sub-header'
 }
+
+export enum HeadToHeadStatusEnum {
+    Negative = -1,
+    Neutral = 0,
+    Positive = 1
+}

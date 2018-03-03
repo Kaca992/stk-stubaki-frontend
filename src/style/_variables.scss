@@ -9,6 +9,7 @@ $black: #000000;
 $white: #ffffff;
 $yellow:  yellow;
 $light-gray: #d3d3d3;
+$red: red;
 
 // font sizes
 $small-font-size: 13px !default;
@@ -62,3 +63,7 @@ $secondary-bg-color_hover: $pink;
 $primary-color: $black;
 $secondary-color: $black;
 
+// season page
+$positive-score-font-color: $blue;
+$negative-score-font-color: $red;
+$none-score-font-color: $light-gray;

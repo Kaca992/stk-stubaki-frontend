@@ -11,12 +11,12 @@ import { tableData } from '../../mock/mockTable';
 import CustomTable, { IHeaderProps } from '../../components/customTable/customTable';
 import { teamHeaders, playerHeaders } from './seasonPage.utils';
 import { Header, Divider, Loader } from 'semantic-ui-react';
-import { ISeasonInfo, ITableTeamInfo, ITablePlayerInfo } from '../../common/dataStructures';
+import { ISeasonInfo, ITableTeamInfo, ITablePlayerInfo, IHeadToHeadDict } from '../../common/dataStructures';
 import { getSeasonDisplayName } from '../../utils/displayFormaters';
 import { CompetitionDuck } from '../../ducks';
 import { withRouter } from 'react-router';
 import CustomText from '../../components/customText/customText';
-import { CustomTextTypeEnum } from '../../common/enums';
+import { CustomTextTypeEnum, HeadToHeadStatusEnum } from '../../common/enums';
 
 export interface ISeasonOwnProps {
     seasonId: any;
@@ -26,6 +26,7 @@ export interface ISeasonPageProps extends ISeasonOwnProps {
     seasonInfo: ISeasonInfo;
     teams: ITableTeamInfo[];
     players: ITablePlayerInfo[];
+    teamHeadToHeads: IHeadToHeadDict;
 
     isLoading: boolean;
     isLoadingSeasons: boolean;
@@ -34,7 +35,7 @@ export interface ISeasonPageProps extends ISeasonOwnProps {
 }
 
 export interface ISeasonPageState {
-
+    teamIdClicked: number;
 }
 
 function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISeasonPageProps> {
@@ -42,6 +43,7 @@ function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISea
         seasonInfo: state.season.byId[ownProps.seasonId],
         teams: state.competition.teams,
         players: state.competition.players,
+        teamHeadToHeads: state.competition.teamHeadToHeads,
 
         isLoading: state.competition.UI.isLoading,
         isLoadingSeasons: state.season.UI.isLoading
@@ -57,7 +59,9 @@ function mapDispatchToProps(dispatch: any): Partial<ISeasonPageProps> {
 class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
     constructor(props: ISeasonPageProps) {
         super(props);
-
+        this.state = {
+            teamIdClicked: -1
+        };
     }
 
     componentDidMount() {
@@ -66,7 +70,43 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
 
     @autobind
     _teamRowClicked(row: any) {
-        return;
+        const rowId = this.state.teamIdClicked === row.teamId ? -1 : row.teamId;
+
+        this.setState({
+            teamIdClicked: rowId
+        });
+    }
+
+    @autobind
+    _getRowClassName(status: HeadToHeadStatusEnum) {
+        switch (status) {
+            case HeadToHeadStatusEnum.Positive:
+                return "positive-score";
+            case HeadToHeadStatusEnum.Negative:
+                return "negative-score";
+            default:
+                return "";
+        }
+    }
+
+    @autobind
+    _generateTeamRowClasses(clickedTeamId: number) {
+        if (clickedTeamId === -1) {
+            return undefined;
+        }
+
+        const rowClasses: {[rowId: string]: string} = {};
+        const teamHeadToHeadInfos = this.props.teamHeadToHeads[clickedTeamId];
+
+        if (teamHeadToHeadInfos === undefined) {
+            return undefined;
+        }
+
+        teamHeadToHeadInfos.forEach(opponent => {
+            rowClasses[opponent.opponentId] = this._getRowClassName(opponent.scoreStatus);
+        });
+
+        return rowClasses;
     }
 
     render() {
@@ -83,11 +123,14 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
             return <Loader active inline='centered' size='large' > Učitavanje... </Loader>;
         }
 
+        const teamRowClasses = this._generateTeamRowClasses(this.state.teamIdClicked);
+
         return (
             <div className="season-page">
                 <CustomText text={`${getSeasonDisplayName(seasonInfo.type)}, Sezona ${seasonInfo.godina}.`}
                     textType={CustomTextTypeEnum.mainHeader}
-                    textAlign='center' />
+                    textAlign='center'
+                    />
 
                 <CustomTable
                     className="team-table"
@@ -95,6 +138,7 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
                     data={teams}
                     rowKey='teamId'
                     isStripped
+                    rowClassNames={teamRowClasses}
                     onRowClicked={this._teamRowClicked}
                 />
 

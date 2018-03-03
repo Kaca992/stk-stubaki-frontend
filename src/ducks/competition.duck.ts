@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { fetcher, actionUtils, ICustomFetchOptions } from '../utils/fetcher';
 import { IAction } from '../common/interfaces';
 import { IStore } from '../store/index';
-import { ITableTeamInfo, ITablePlayerInfo } from '../common/dataStructures';
+import { ITableTeamInfo, ITablePlayerInfo, IHeadToHeadDict, IHeadToHeadInfo } from '../common/dataStructures';
 import { CompetitionController } from '../constants/service.endpoints';
 // action types
 
@@ -32,6 +32,8 @@ const actionCreators = {
 export interface ICompetitionState {
     teams: ITableTeamInfo[];
     players: ITablePlayerInfo[];
+    teamHeadToHeads: IHeadToHeadDict;
+    playersHeadToHeads: IHeadToHeadDict;
 
     UI: {
         isLoading: boolean;
@@ -41,6 +43,8 @@ export interface ICompetitionState {
 const initialState: ICompetitionState = {
     teams: [],
     players: [],
+    teamHeadToHeads: {},
+    playersHeadToHeads: [],
 
     UI: {
         isLoading: true
@@ -52,6 +56,10 @@ const reducer = (state= initialState, action: IAction): ICompetitionState => {
         case actionUtils.requestAction(actionTypes.GET_TEAM_INFOS):
             return {
                 ...state,
+                teams: [],
+                players: [],
+                teamHeadToHeads: {},
+                playersHeadToHeads: [],
                 UI: {
                     ...state.UI,
                     isLoading: true
@@ -62,6 +70,7 @@ const reducer = (state= initialState, action: IAction): ICompetitionState => {
                 ...state,
                 teams: action.payload.teams,
                 players: action.payload.players,
+                teamHeadToHeads: action.payload.teamHeadToHeads,
                 UI: {
                     ...state.UI,
                     isLoading: false
