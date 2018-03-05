@@ -59,7 +59,7 @@ const reducer = (state= initialState, action: IAction): ICompetitionState => {
                 teams: [],
                 players: [],
                 teamHeadToHeads: {},
-                playersHeadToHeads: [],
+                playersHeadToHeads: {},
                 UI: {
                     ...state.UI,
                     isLoading: true
@@ -71,6 +71,7 @@ const reducer = (state= initialState, action: IAction): ICompetitionState => {
                 teams: action.payload.teams,
                 players: action.payload.players,
                 teamHeadToHeads: action.payload.teamHeadToHeads,
+                playersHeadToHeads: action.payload.playerHeadToHeads,
                 UI: {
                     ...state.UI,
                     isLoading: false

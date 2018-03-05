@@ -27,6 +27,7 @@ export interface ISeasonPageProps extends ISeasonOwnProps {
     teams: ITableTeamInfo[];
     players: ITablePlayerInfo[];
     teamHeadToHeads: IHeadToHeadDict;
+    playersHeadToHeads: IHeadToHeadDict;
 
     isLoading: boolean;
     isLoadingSeasons: boolean;
@@ -36,6 +37,7 @@ export interface ISeasonPageProps extends ISeasonOwnProps {
 
 export interface ISeasonPageState {
     teamIdClicked: number;
+    playerIdClicked: number;
 }
 
 function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISeasonPageProps> {
@@ -44,6 +46,7 @@ function mapStateToProps(state: IStore, ownProps: ISeasonOwnProps): Partial<ISea
         teams: state.competition.teams,
         players: state.competition.players,
         teamHeadToHeads: state.competition.teamHeadToHeads,
+        playersHeadToHeads: state.competition.playersHeadToHeads,
 
         isLoading: state.competition.UI.isLoading,
         isLoadingSeasons: state.season.UI.isLoading
@@ -60,7 +63,8 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
     constructor(props: ISeasonPageProps) {
         super(props);
         this.state = {
-            teamIdClicked: -1
+            teamIdClicked: -1,
+            playerIdClicked: -1
         };
     }
 
@@ -74,6 +78,15 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
 
         this.setState({
             teamIdClicked: rowId
+        });
+    }
+
+    @autobind
+    _playerRowClicked(row: any) {
+        const rowId = this.state.playerIdClicked === row.playerId ? -1 : row.playerId;
+
+        this.setState({
+            playerIdClicked: rowId
         });
     }
 
@@ -102,7 +115,29 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
             return undefined;
         }
 
+        rowClasses[clickedTeamId] = 'neutral-score';
         teamHeadToHeadInfos.forEach(opponent => {
+            rowClasses[opponent.opponentId] = this._getRowClassName(opponent.scoreStatus);
+        });
+
+        return rowClasses;
+    }
+
+    @autobind
+    _generatePlayerRowClasses(clickedPlayerId: number) {
+        if (clickedPlayerId === -1) {
+            return undefined;
+        }
+
+        const rowClasses: {[rowId: string]: string} = {};
+        const playerHeadToHeadInfos = this.props.playersHeadToHeads[clickedPlayerId];
+
+        if (playerHeadToHeadInfos === undefined) {
+            return undefined;
+        }
+
+        rowClasses[clickedPlayerId] = 'neutral-score';
+        playerHeadToHeadInfos.forEach(opponent => {
             rowClasses[opponent.opponentId] = this._getRowClassName(opponent.scoreStatus);
         });
 
@@ -124,6 +159,15 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
         }
 
         const teamRowClasses = this._generateTeamRowClasses(this.state.teamIdClicked);
+        const playerRowClasses = this._generatePlayerRowClasses(this.state.playerIdClicked);
+
+        const teamsClassName = classNames('team-table', {
+            clicked: this.state.teamIdClicked !== -1
+        });
+
+        const playersClassName = classNames('players-table', {
+            clicked: this.state.playerIdClicked !== -1
+        });
 
         return (
             <div className="season-page">
@@ -133,7 +177,7 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
                     />
 
                 <CustomTable
-                    className="team-table"
+                    className={teamsClassName}
                     headers={teamHeaders}
                     data={teams}
                     rowKey='teamId'
@@ -147,12 +191,13 @@ class SeasonPage extends React.Component<ISeasonPageProps, ISeasonPageState> {
                     textAlign='center' />
 
                 <CustomTable
-                    className="players-table"
+                    className={playersClassName}
                     headers={playerHeaders}
                     data={players}
                     rowKey='playerId'
                     isStripped
-                    onRowClicked={this._teamRowClicked}
+                    rowClassNames={playerRowClasses}
+                    onRowClicked={this._playerRowClicked}
                 />
             </div>
         );

@@ -1,5 +1,27 @@
 @import 'src/style/index';
 
+@mixin row-clicked($name, $color) {
+    tbody {
+        tr {
+            &.#{$name} {
+                td:first-of-type {
+                    color: $color;
+                }
+            }
+        }
+    }
+}
+
+@mixin table-clicked($color) {
+    tbody {
+        tr {
+            td:first-of-type {
+                color: $color;
+            }
+        }
+    }
+}
+
 .season-page {
     display: flex;
     flex-direction: column;
@@ -12,25 +34,23 @@
         margin-top: 5%;
         width: 92%;
         margin-bottom: 5%;
+
+        &.clicked {
+            @include table-clicked($none-score-font-color);
+        }
+        @include row-clicked('neutral-score', $neutral-score-font-color);
+        @include row-clicked('positive-score', $positive-score-font-color);
+        @include row-clicked('negative-score', $negative-score-font-color);
     }
 
     .players-table {
         width: 92%;
-    }
 
-    tbody {
-        tr {
-            &.positive-score {
-                td:first-of-type {
-                    color: $positive-score-font-color;
-                }
-            }
-
-            &.negative-score {
-                td:first-of-type {
-                    color: $negative-score-font-color;
-                }
-            }
+        &.clicked {
+            @include table-clicked($none-score-font-color);
         }
+        @include row-clicked('neutral-score', $neutral-score-font-color);
+        @include row-clicked('positive-score', $positive-score-font-color);
+        @include row-clicked('negative-score', $negative-score-font-color);
     }
 }
