@@ -35,6 +35,12 @@
         width: 92%;
         margin-bottom: 5%;
 
+        tbody {
+            tr:nth-child(-n+3) {
+                font-weight:bold;
+            }
+        }
+
         &.clicked {
             @include table-clicked($none-score-font-color);
         }
